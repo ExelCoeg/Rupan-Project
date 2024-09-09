@@ -2099,71 +2099,106 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 8
-  playerControls:
-    m_Name: Player Controls
+  move:
+    m_Name: Move
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: 2ff414cc-2e3e-4bb3-a590-b47237e554f2
+    m_Id: 15b4229e-927d-4c63-934d-6c2c5f9cf9a5
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings:
     - m_Name: 3D Vector
-      m_Id: ef621bac-8417-439d-84a8-8f477e0a42cc
+      m_Id: ed0fed5e-91f8-4073-b68f-17c281c4ee20
       m_Path: 3DVector
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 4
     - m_Name: up
-      m_Id: a7889718-6d34-4308-abdf-37a52ba78a83
-      m_Path: 
+      m_Id: 2be1064e-45a3-4c8a-87fd-c49b619095e0
+      m_Path: <Keyboard>/space
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     - m_Name: down
-      m_Id: 73c53268-10de-4ae5-bf93-5949927793ea
+      m_Id: c60ca64b-b1ee-4a22-8622-26a4478ff097
       m_Path: 
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     - m_Name: left
-      m_Id: 1e4e3605-7585-4916-b1e2-0e953a641ceb
+      m_Id: 75997738-9f49-4373-a223-9ab14ae23478
       m_Path: <Keyboard>/a
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     - m_Name: right
-      m_Id: adb81f73-6175-4646-8976-10692077df93
+      m_Id: 5f271c31-5ea3-4f6a-aaac-224e7a819c0d
       m_Path: <Keyboard>/d
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     - m_Name: forward
-      m_Id: 8fbe2dcc-495e-41e5-b132-633b146bb56b
+      m_Id: 39d3943f-d330-441a-a5e4-20f494da3aa9
       m_Path: <Keyboard>/w
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     - m_Name: backward
-      m_Id: ebadd8a2-7d75-459d-a7fc-dca62c09cfb1
+      m_Id: 4db417d5-da30-41b1-92d2-67293efa91c5
       m_Path: <Keyboard>/s
       m_Interactions: 
       m_Processors: 
       m_Groups: 
-      m_Action: Player Controls
+      m_Action: Move
       m_Flags: 8
     m_Flags: 0
+  fire:
+    m_Name: Fire
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: a011d51b-f25e-44eb-a167-4fcda2749b35
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 0f9d2e6d-aada-4546-bf56-6230c73cbc2c
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Fire
+      m_Flags: 0
+    m_Flags: 0
+  interact:
+    m_Name: Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 724b1b35-5c4b-4065-8046-ae63d4450f14
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings:
+    - m_Name: 
+      m_Id: 3fe0551a-7c81-4eaf-ad37-cfe106111e7e
+      m_Path: <Keyboard>/f
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Interact
+      m_Flags: 0
+    m_Flags: 0
+  currentInteractableObject: {fileID: 0}
 --- !u!1 &6344227393629818703
 GameObject:
   m_ObjectHideFlags: 0

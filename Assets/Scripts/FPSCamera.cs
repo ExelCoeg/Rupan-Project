@@ -1,24 +1,18 @@
 using UnityEngine;
 public class FPSCamera : MonoBehaviour
 {
-
     public Transform Target;
     public float mouseSensitivity = 5f;
     private float verticalRotation;
     private float horizontalRotation;
-    // public Vector3 offset;
 
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Cursor.visible = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
-       
-        // transform.position = Target.position;
-
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 

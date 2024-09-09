@@ -32,11 +32,11 @@ public class Player : MonoBehaviour
     }
     private void Update() {
         moveDirection = move.ReadValue<Vector3>();
-        PlayerInteract();
+        DetectInteractableObject();
     }
     private void FixedUpdate() {
         moveDirection = moveDirection.x * transform.right + moveDirection.z * transform.forward;
-        rb.MovePosition(transform.position + moveDirection * speed * Time.deltaTime);
+        rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
     }
 
     private void Fire(InputAction.CallbackContext context){
@@ -44,10 +44,13 @@ public class Player : MonoBehaviour
     }
 
     private void Interact(InputAction.CallbackContext context){
-        print("Interact");
+        if(currentInteractableObject != null){
+            print("Interact " + currentInteractableObject.name);
+            currentInteractableObject.Interacted();
+        }
     }
 
-    private void PlayerInteract(){
+    private void DetectInteractableObject(){
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
@@ -65,9 +68,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        if(Input.GetKeyDown(KeyCode.F) && currentInteractableObject != null){
-            // UIManager.instance.UIInteractText.Show();
-            currentInteractableObject.Interacted();
-        }
+        
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     public bool isDebug = false;
-    Material outline;
+    Material outline;   
     MeshRenderer meshRenderer;
     public bool is2DObject;
     
@@ -12,7 +12,6 @@ public abstract class InteractableObject : MonoBehaviour
             this.meshRenderer = meshRenderer;
             outline = meshRenderer.materials[1];
         }
-        
        
     }
     private void Start() {
@@ -24,8 +23,4 @@ public abstract class InteractableObject : MonoBehaviour
     public void EnableOutline(){
         outline.SetFloat("_Scale", 1.125f);
    }
- 
-
-   
-
 }
