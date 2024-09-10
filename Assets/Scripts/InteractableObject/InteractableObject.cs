@@ -2,7 +2,7 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     public bool isDebug = false;
-    Material outline;   
+    Material outline;  
     public abstract void Interacted(); 
     public virtual void Awake() {
         if(TryGetComponent(out MeshRenderer meshRenderer)){
@@ -18,9 +18,13 @@ public abstract class InteractableObject : MonoBehaviour
     //     DisableOutline();        
     // }
    public void DisableOutline(){
-        outline.SetFloat("_Scale", 0f);
+        if(outline != null){
+            outline.SetFloat("_Scale", 0f);
+        }
     }
     public void EnableOutline(){
-        outline.SetFloat("_Scale", 1.05f);
+        if(outline != null){
+            outline.SetFloat("_Scale", 1.025f);
+        }
    }
 }

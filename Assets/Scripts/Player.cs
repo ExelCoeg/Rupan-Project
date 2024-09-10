@@ -1,25 +1,36 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamagable
 {
     Rigidbody rb;
+    public int hitCount;
     public float speed;
     public PlayerInputActions playerControls;   
     public InputAction move;
     public InputAction fire;
     public InputAction interact;
     public InteractableObject currentInteractableObject;
+    Animator anim;
     Vector3 moveDirection;
     RaycastHit hit;
+    public Transform attackPoint;
+    public float attackRadius;
+    public int attackDamage;
+    private string isWalkingString = "isWalking";
+    private string attackString = "attack";
+
+    float hitCountTimer;
+    public float hitCountResetTime;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
+        anim = GetComponentInChildren<Animator>();
         playerControls = new PlayerInputActions();
     }
     private void OnEnable() {
         move = playerControls.Player.Move;
         fire = playerControls.Player.Fire;
         interact = playerControls.Player.Interact;
-        fire.performed += Fire;
+        fire.performed += MeleeAttack;
         interact.performed += Interact;
         interact.Enable();
         fire.Enable();
@@ -32,7 +43,19 @@ public class Player : MonoBehaviour
     }
     private void Update() {
         if(GameManager.instance.isPaused) return;
+        if(hitCount <= 0){
+            GameManager.instance.GameOver();
+        }
+
+        hitCountTimer -= Time.deltaTime;
+        if(hitCountTimer <= 0){
+            ResetHitCountTimer();
+        }
+    
         moveDirection = move.ReadValue<Vector3>();
+       
+        anim.SetBool(isWalkingString,moveDirection != Vector3.zero);
+        
         DetectInteractableObject();
     }
     private void FixedUpdate() {
@@ -40,8 +63,13 @@ public class Player : MonoBehaviour
         rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
     }
 
-    private void Fire(InputAction.CallbackContext context){
-        print("Fire");
+    private void MeleeAttack(InputAction.CallbackContext context){
+        Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRadius, LayerMask.GetMask("Enemy"));
+        foreach (IDamagable enemy in hitEnemies)
+        {
+            enemy.TakeDamage(attackDamage);
+        }
+        anim.SetTrigger(attackString);
     }
 
     private void Interact(InputAction.CallbackContext context){
@@ -74,7 +102,18 @@ public class Player : MonoBehaviour
                 currentInteractableObject = null;
             }
         }
+    }
 
-        
+    private void OnDrawGizmos() {
+        if(attackPoint == null) return;
+        Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hitCount -= damage;
+    }
+    public void ResetHitCountTimer(){
+        hitCountTimer = hitCountResetTime;
     }
 }
