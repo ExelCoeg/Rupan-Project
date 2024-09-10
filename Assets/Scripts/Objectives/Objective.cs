@@ -11,7 +11,8 @@ public class Objective : MonoBehaviour {
     }
     public void CompleteObjective(){
         isComplete = true;
-        OnObjectiveComplete?.Invoke();
+        Destroy(gameObject);
+        // OnObjectiveComplete?.Invoke();
     }
     public void OnEnable(){
 

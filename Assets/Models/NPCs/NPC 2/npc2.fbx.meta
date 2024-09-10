@@ -8,17 +8,17 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: face
-    second: {fileID: 2100000, guid: 356147527174b65428067a6c0f5801eb, type: 2}
+    second: {fileID: 2100000, guid: 1b21ca004fe2bcb4da7e5f1d54c28223, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: speed
-    second: {fileID: 2100000, guid: 6dd23dbac471b1148bafb8f15a4e97d9, type: 2}
+    second: {fileID: 2100000, guid: f7c777f364b535c4f8028cf0284a3a38, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: texture
-    second: {fileID: 2100000, guid: ef3f10dc064b1d8499e203a3e8a517bc, type: 2}
+    second: {fileID: 2100000, guid: 4528fd35fb960594eba4b90edf6a6280, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
