@@ -11,7 +11,7 @@ public class UIPause : UIBase
     {
         resumeButton.onClick.AddListener(()=> {
             GameManager.instance.ResumeGame();
-            Hide();
+            UIManager.instance.HideUI(UI.PAUSE);
         });
     }
 }

@@ -3,16 +3,16 @@ public abstract class InteractableObject : MonoBehaviour
 {
     public bool isDebug = false;
     Material outline;   
-    MeshRenderer meshRenderer;
-    public bool is2DObject;
-    
     public abstract void Interacted(); 
-    public void Awake() {
-        if(TryGetComponent<MeshRenderer>(out MeshRenderer meshRenderer)){
-            this.meshRenderer = meshRenderer;
-            outline = meshRenderer.materials[1];
+    public virtual void Awake() {
+        if(TryGetComponent(out MeshRenderer meshRenderer)){
+            for(int i = 0; i < meshRenderer.materials.Length; i++){
+                if(meshRenderer.materials[i].name.Contains("Outline")){
+                    outline = meshRenderer.materials[i];
+                    break;
+                }
+            }
         }
-       
     }
     private void Start() {
         DisableOutline();        
@@ -21,6 +21,6 @@ public abstract class InteractableObject : MonoBehaviour
         outline.SetFloat("_Scale", 0f);
     }
     public void EnableOutline(){
-        outline.SetFloat("_Scale", 1.125f);
+        outline.SetFloat("_Scale", 1.05f);
    }
 }

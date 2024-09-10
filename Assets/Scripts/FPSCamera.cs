@@ -13,11 +13,12 @@ public class FPSCamera : MonoBehaviour
 
     void Update()
     {
+        if(GameManager.instance.isPaused) return;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
         verticalRotation -= mouseY * mouseSensitivity;
-        verticalRotation = Mathf.Clamp(verticalRotation, -20f, 20f);
+        verticalRotation = Mathf.Clamp(verticalRotation, -45f, 45f);
 
         horizontalRotation = Target.rotation.eulerAngles.y +  mouseX * mouseSensitivity;
 

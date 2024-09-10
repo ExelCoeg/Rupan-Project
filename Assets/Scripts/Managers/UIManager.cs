@@ -4,24 +4,45 @@ using UnityEngine;
 
 public class UIManager : SingletonMonoBehaviour<UIManager>
 {
-    //------Prefabs---------
+    public UI currentUI;
+    [Space]
+    [Header("UI Prefabs")]
     public UIPause uiPausePrefab;
+    public UIInteract uiInteractPrefab;
+    public UIObjectiveTexts uiObjectiveTextsPrefab;
 
     //------ScriptReferences----
+    [Header("UI References")]
     public UIPause uiPause;
+    public UIInteract uiInteract;
+    public UIObjectiveTexts uiObjectiveTexts;
 
-
-    public UI currentUI;
+    [Header("Canvas")]
+    public Transform canvas;
     private void Start() {
-        uiPause = Instantiate(uiPausePrefab,transform);
+        uiObjectiveTexts = Instantiate(uiObjectiveTextsPrefab,canvas);
+        uiInteract = Instantiate(uiInteractPrefab,canvas);
+        uiPause = Instantiate(uiPausePrefab,canvas);
+        // uiObjectiveTexts.Hide();
+        uiInteract.Hide();
         uiPause.Hide();
     }
     private void Update() {
-        
+        Cursor.visible = true;
+        if(currentUI == UI.GAMEPLAY){
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else{
+            Cursor.lockState = CursorLockMode.None;
+        }
+
+
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(currentUI == UI.PAUSE){
                 HideUI(UI.PAUSE);
+                GameManager.instance.ResumeGame();
             }else{
+                GameManager.instance.PauseGame();
                 ShowUI(UI.PAUSE);
             }
         }
@@ -57,7 +78,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
 
     }
+    public void UpdateObjectiveTexts(string mainText, string description){
+        uiObjectiveTexts.objectiveText.text = mainText;
+        uiObjectiveTexts.objectiveDescription.text = description;
+    }
 }
+
 
 
 public enum UI{

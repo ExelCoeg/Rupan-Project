@@ -44,6 +44,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eecd64c1b5722548b4bb123a54f984c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiPausePrefab: {fileID: 5314999737965178197, guid: 6345ade1dcf07bc4c94765e1aea392e9, type: 3}
-  uiPause: {fileID: 0}
   currentUI: 1
+  uiPausePrefab: {fileID: 5314999737965178197, guid: 6345ade1dcf07bc4c94765e1aea392e9, type: 3}
+  uiInteractPrefab: {fileID: 4764506854520357524, guid: 152af5b4efc3f0e4d9799a35789a61a9, type: 3}
+  uiObjectiveTextsPrefab: {fileID: 3403841433938693263, guid: 68dfb27bc4d4eae41a37c7b78cf09d84, type: 3}
+  uiPause: {fileID: 0}
+  uiInteract: {fileID: 0}
+  uiObjectiveTexts: {fileID: 0}
+  canvas: {fileID: 0}

@@ -31,6 +31,7 @@ public class Player : MonoBehaviour
         interact.Disable();
     }
     private void Update() {
+        if(GameManager.instance.isPaused) return;
         moveDirection = move.ReadValue<Vector3>();
         DetectInteractableObject();
     }
@@ -51,10 +52,16 @@ public class Player : MonoBehaviour
     }
 
     private void DetectInteractableObject(){
+        if(currentInteractableObject != null){
+            UIManager.instance.uiInteract.Show();
+        }
+        else{
+            UIManager.instance.uiInteract.Hide();
+        }
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        if(Physics.Raycast(transform.position,transform.forward, out hit, 2f,LayerMask.GetMask("Interactable"))){
+        if(Physics.Raycast(ray, out hit, 5f,LayerMask.GetMask("Interactable"))){
             InteractableObject detectedInteractableObject = hit.collider.GetComponent<InteractableObject>();
             if(detectedInteractableObject != null){
                 currentInteractableObject = detectedInteractableObject;
