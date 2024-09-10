@@ -14,9 +14,9 @@ public abstract class InteractableObject : MonoBehaviour
             }
         }
     }
-    private void Start() {
-        DisableOutline();        
-    }
+    // private void Start() {
+    //     DisableOutline();        
+    // }
    public void DisableOutline(){
         outline.SetFloat("_Scale", 0f);
     }

@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f42765bbffeb934ca8968521f702e4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: 
-  description: 
+  mainText: Investigate the sound.
+  description: Locate where the sound coming from.
   isComplete: 0
+  window: {fileID: 7431708534705650419, guid: f214958dd77056b4e9c43ed630a794db, type: 3}
