@@ -18,13 +18,17 @@ public class Player : MonoBehaviour, IDamagable
     public int attackDamage;
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
-
+    
+    public Transform spawnPoint;
     float hitCountTimer;
     public float hitCountResetTime;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerControls = new PlayerInputActions();
+    }
+    private void Start() {
+        transform.position = spawnPoint.position;
     }
     private void OnEnable() {
         move = playerControls.Player.Move;

@@ -1,18 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Playables;
 
 public class CutsceneManager : SingletonMonoBehaviour<CutsceneManager>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public List<PlayableDirector> cutscenes;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+
+    public void PlayCutscene(int index){
+        cutscenes[index].Play();
     }
 }
