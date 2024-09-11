@@ -1,6 +1,7 @@
 using UnityEngine;
 using System;
 public class Objective : MonoBehaviour {
+    public bool isDebug;
     public string mainText;
     public string description;
     public bool isComplete;
@@ -12,7 +13,7 @@ public class Objective : MonoBehaviour {
     public void CompleteObjective(){
         isComplete = true;
         Destroy(gameObject);
-        // OnObjectiveComplete?.Invoke();
+        ObjectiveManager.instance.currentObjectiveIndex++;
     }
     public void OnEnable(){
 

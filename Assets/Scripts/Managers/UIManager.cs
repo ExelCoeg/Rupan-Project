@@ -36,7 +36,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             Cursor.lockState = CursorLockMode.None;
         }
 
-
         if(Input.GetKeyDown(KeyCode.Escape)){
             if(currentUI == UI.PAUSE){
                 HideUI(UI.PAUSE);
@@ -47,12 +46,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             }
         }
     }
-
     public void ShowUI(UI ui){
         if(currentUI == ui){
             return;
         }
-
         HideUI(currentUI);
 
         switch(ui){
@@ -60,23 +57,26 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
                 uiPause.Show();
                 break;
         }
-
         currentUI = ui;
     }
-
     public void HideUI(UI ui){
         if(currentUI != ui){
             return;
         }
-
         switch(ui){
             case UI.PAUSE:
                 uiPause.Hide();
                 break;
         }
         currentUI = UI.GAMEPLAY;
-
-
+    }
+    public void HideUIForCutscene(){
+        uiObjectiveTexts.Hide();
+        uiInteract.Hide();
+    }
+    public void ShowUIForCutscene(){
+        uiObjectiveTexts.Show();
+        uiInteract.Show();
     }
     public void UpdateObjectiveTexts(string mainText, string description){
         uiObjectiveTexts.objectiveText.text = mainText;

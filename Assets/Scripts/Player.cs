@@ -30,6 +30,16 @@ public class Player : MonoBehaviour, IDamagable
     private void Start() {
         transform.position = spawnPoint.position;
     }
+    public void EnableControls(){
+        move.Enable();
+        fire.Enable();
+        interact.Enable();
+    }
+    public void DisableControls(){
+        move.Disable();
+        fire.Disable();
+        interact.Disable();
+    }
     private void OnEnable() {
         move = playerControls.Player.Move;
         fire = playerControls.Player.Fire;

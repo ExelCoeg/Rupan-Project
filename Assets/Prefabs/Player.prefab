@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3301628558842267297
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3373296615603713459}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3373296615603713459
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3301628558842267297}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: 0.6335567, z: -0, w: 0.7736963}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 1.5384616}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5338764080035873201}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5664611532547277908
 GameObject:
   m_ObjectHideFlags: 0
@@ -10,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1120879902190363871}
   m_Layer: 0
-  m_Name: attackPoint
+  m_Name: AttackPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -65,6 +96,7 @@ Transform:
   m_Children:
   - {fileID: 4411254027387658334}
   - {fileID: 1120879902190363871}
+  - {fileID: 3373296615603713459}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &5207356576693673106
@@ -129,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 60e5f959cfed84341bdd6dfd72998be4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitCount: 3
   speed: 5
   move:
     m_Name: Move
@@ -160,6 +193,9 @@ MonoBehaviour:
   currentInteractableObject: {fileID: 0}
   attackPoint: {fileID: 1120879902190363871}
   attackRadius: 0.5
+  attackDamage: 0
+  spawnPoint: {fileID: 3373296615603713459}
+  hitCountResetTime: 0
 --- !u!1 &7421450775273127508
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,7 +327,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
