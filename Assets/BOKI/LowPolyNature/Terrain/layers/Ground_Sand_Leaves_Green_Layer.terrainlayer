@@ -6,17 +6,17 @@ TerrainLayer:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Ground_Snow_Layer
-  m_DiffuseTexture: {fileID: 2800000, guid: a0eaaf765c62dec4b8d2d1a25dce8f1d, type: 3}
-  m_NormalMapTexture: {fileID: 2800000, guid: a5c8fc6c1f0f431428eb6e4da91c92ca, type: 3}
-  m_MaskMapTexture: {fileID: 2800000, guid: fc0bc9b7fac4798468b66cb501f2f056, type: 3}
+  m_Name: Ground_Sand_Leaves_Green_Layer
+  m_DiffuseTexture: {fileID: 2800000, guid: 986eb96e8335eb54fa6212f7dcefb096, type: 3}
+  m_NormalMapTexture: {fileID: 2800000, guid: 5e9cb2f9d012a34479d184df86a30a5f, type: 3}
+  m_MaskMapTexture: {fileID: 2800000, guid: e61e4f5e94ce8f2469446fa35ffc11e1, type: 3}
   m_TileSize: {x: 5, y: 5}
   m_TileOffset: {x: 0, y: 0}
   m_Specular: {r: 0, g: 0, b: 0, a: 0}
   m_Metallic: 0
-  m_Smoothness: 0.2
+  m_Smoothness: 0
   m_NormalScale: 2
   m_DiffuseRemapMin: {x: 0, y: 0, z: 0, w: 0}
   m_DiffuseRemapMax: {x: 1, y: 1, z: 1, w: 1}
   m_MaskMapRemapMin: {x: 0, y: 0, z: 0, w: 0}
-  m_MaskMapRemapMax: {x: 0, y: 1, z: 0, w: 0.48}
+  m_MaskMapRemapMax: {x: 0, y: 1, z: 0, w: 0}

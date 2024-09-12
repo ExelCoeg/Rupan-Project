@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 [System.Serializable]
-public class NPC : MonoBehaviour
+public class NPC : MonoBehaviour,IDamagable
 {
     public enum State
     {
@@ -225,6 +225,10 @@ public class NPC : MonoBehaviour
         lastAttackTime = Time.time;
         isAlreadyAttack = false;
     }
+    public void TakeDamage(int damage)
+    {
+        
+    }
 
     private void Scanning()
     {
@@ -290,4 +294,5 @@ public class NPC : MonoBehaviour
             canSeePlayer = false;
         }
     }
+
 }
