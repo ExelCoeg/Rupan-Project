@@ -1,28 +1,34 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 public class FPSCamera : MonoBehaviour
 {
     public Transform Target;
+    public PlayerInputActions playerControls;
+    public InputAction look;
     public float mouseSensitivity = 5f;
     private float verticalRotation;
     private float horizontalRotation;
     public bool disable;
 
+    private void Awake() {
+        playerControls = new PlayerInputActions();
+    }
     private void Start() {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
     }
     public void EnableCamera(){
-        disable = false;
+        look.Enable();
     }
     public void DisableCamera(){
-        disable = true;
+        look.Disable();
     }
 
     void Update()
     {
-        if(GameManager.instance.isPaused || disable) return;
-        float mouseX = Input.GetAxis("Mouse X");
-        float mouseY = Input.GetAxis("Mouse Y");
+        if(GameManager.instance.isPaused) return;
+        float mouseX = look.ReadValue<Vector2>().x;
+        float mouseY = look.ReadValue<Vector2>().y;
 
         verticalRotation -= mouseY * mouseSensitivity;
         verticalRotation = Mathf.Clamp(verticalRotation, -45f, 45f);
@@ -31,5 +37,12 @@ public class FPSCamera : MonoBehaviour
 
         transform.rotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
         Target.rotation = Quaternion.Euler(0, horizontalRotation, 0);
+    }
+    public void OnEnable(){
+        look = playerControls.Player.Look;
+        look.Enable();
+    }
+    public void OnDisable(){
+        look.Disable();
     }
 }

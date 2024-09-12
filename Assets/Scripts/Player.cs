@@ -7,7 +7,7 @@ public class Player : MonoBehaviour, IDamagable
     public float speed;
     public PlayerInputActions playerControls;   
     public InputAction move;
-    public InputAction fire;
+    public InputAction attack;
     public InputAction interact;
     public InteractableObject currentInteractableObject;
     Animator anim;
@@ -21,7 +21,7 @@ public class Player : MonoBehaviour, IDamagable
     public Transform spawnPoint;
     float hitCountTimer;
     public float hitCountResetTime;
-    bool enableDetectInteractableObject;
+    public bool enableDetectInteractableObject = true;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
@@ -30,29 +30,35 @@ public class Player : MonoBehaviour, IDamagable
     private void Start() {
         transform.position = spawnPoint.position;
     }
+
+
     public void EnableControls(){
+        print("EnableControls");
         move.Enable();
-        fire.Enable();
+        attack.Enable();
         interact.Enable();
     }
     public void DisableControls(){
+        print("DisableControls");
         move.Disable();
-        fire.Disable();
+        attack.Disable();
         interact.Disable();
     }
+
+    
     private void OnEnable() {
         move = playerControls.Player.Move;
-        fire = playerControls.Player.Fire;
+        attack = playerControls.Player.Attack;
         interact = playerControls.Player.Interact;
-        fire.performed += MeleeAttack;
+        attack.performed += MeleeAttack;
         interact.performed += Interact;
         interact.Enable();
-        fire.Enable();
+        attack.Enable();
         move.Enable();
     }
     private void OnDisable() {
         move.Disable();
-        fire.Disable();
+        attack.Disable();
         interact.Disable();
     }
     private void Update() {
@@ -65,6 +71,8 @@ public class Player : MonoBehaviour, IDamagable
         if(hitCountTimer <= 0){
             ResetHitCountTimer();
         }
+
+
         if(enableDetectInteractableObject){
             DetectInteractableObject();
         }
@@ -134,8 +142,22 @@ public class Player : MonoBehaviour, IDamagable
 
     public void EnableDetect(){
         enableDetectInteractableObject = true;
+        interact.Enable();
     }
     public void DisableDetect(){
         enableDetectInteractableObject = false;
+        interact.Disable();
     }
+    // public void EnableMovement(){
+    //     move.Enable();
+    // }
+    // public void DisableMovement(){
+    //     move.Disable();
+    // }
+    // public void DisableAttack(){
+    //     attack.Disable();
+    // }
+    // public void EnableAttack(){
+    //     attack.Enable();
+    // }
 }

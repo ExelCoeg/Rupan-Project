@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
- 
+using UnityEngine.Playables;
+
 [System.Serializable]
 public class DialogueCharacter
 {
@@ -25,6 +26,7 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
+    public PlayableDirector director;
     public bool isPlayInStart = false;
     public bool isPlayeOnce = true;
     public bool isPlayed = false;
@@ -37,6 +39,7 @@ public class DialogueTrigger : MonoBehaviour
  
     public bool TriggerDialogue()
     {
+        print("TriggerDialogue");
         return DialogueManager.Instance.StartDialogue(dialogue);
     }
     private void OnTriggerEnter(Collider other) {
@@ -47,6 +50,7 @@ public class DialogueTrigger : MonoBehaviour
                 isPlayed = TriggerDialogue();
             }else if(!isPlayeOnce){
                 TriggerDialogue();
+
             }
             
         }

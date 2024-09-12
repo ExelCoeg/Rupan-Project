@@ -22,19 +22,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 9.94
+      value: 5.031
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.00000047683716
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.258933
+      value: -2.24
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.6817726
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalRotation.x
@@ -42,11 +42,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.73156416
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -54,7 +54,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 359
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -75,5 +75,56 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2645664576536759549}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7551686698922822556}
   m_SourcePrefab: {fileID: 100100000, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
+--- !u!1 &3861484115571463513 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 9968b3a11a011a54ebfcc6d474cd4a38, type: 3}
+  m_PrefabInstance: {fileID: 4132007071102953480}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2645664576536759549
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861484115571463513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e3687f9f466d68e4680e9b921850db95, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!320 &7551686698922822556
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3861484115571463513}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: ea0c07a42edfbce47a4c129e0e7cec1c, type: 2}
+  m_InitialState: 0
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 6155872259281576008, guid: ea0c07a42edfbce47a4c129e0e7cec1c, type: 2}
+    value: {fileID: 2645664576536759549}
+  m_ExposedReferences:
+    m_References: []

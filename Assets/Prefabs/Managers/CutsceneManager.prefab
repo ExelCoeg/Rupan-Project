@@ -30,8 +30,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 873183636888126328}
   - {fileID: 2181504954842368526}
+  - {fileID: 873183636888126328}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2536156253002691590
@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenes:
   - {fileID: 2159230974187156676}
-  - {fileID: 8953221189718695153}
 --- !u!1 &6565778532995072593
 GameObject:
   m_ObjectHideFlags: 0

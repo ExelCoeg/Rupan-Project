@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueArea;
  
     private Queue<DialogueLine> lines;
-    
+    public UIDialog  uiDialog;
     public bool isDialogueActive = false;
  
     public float typingSpeed = 0.2f;
@@ -36,7 +36,7 @@ public class DialogueManager : MonoBehaviour
         }
         isDialogueActive = true;
  
-        animator.Play("Show");
+        uiDialog.Show();
  
         lines.Clear();
  
@@ -48,7 +48,11 @@ public class DialogueManager : MonoBehaviour
         DisplayNextDialogueLine();
         return true;
     }
- 
+    private void Update() {
+        if(isDialogueActive && Input.anyKeyDown){
+            DisplayNextDialogueLine();
+        }
+    }
     public void DisplayNextDialogueLine()
     {
         if (lines.Count == 0)
@@ -80,6 +84,8 @@ public class DialogueManager : MonoBehaviour
     void EndDialogue()
     {
         isDialogueActive = false;
-        animator.Play("Hide");
+        uiDialog.Hide();
     }
+
+   
 }
