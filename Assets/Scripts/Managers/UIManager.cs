@@ -5,6 +5,7 @@ using UnityEngine;
 public class UIManager : SingletonMonoBehaviour<UIManager>
 {
     public UI currentUI;
+    public bool enableCursor =true;
     [Space]
     [Header("UI Prefabs")]
     public UIPause uiPausePrefab;
@@ -28,7 +29,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiPause.Hide();
     }
     private void Update() {
-        Cursor.visible = true;
+        Cursor.visible = enableCursor;
         if(currentUI == UI.GAMEPLAY){
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -69,19 +70,25 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
                 break;
         }
         currentUI = UI.GAMEPLAY;
+
     }
+
     public void HideUIForCutscene(){
         uiObjectiveTexts.Hide();
         uiInteract.Hide();
+        enableCursor = false;
+
     }
     public void ShowUIForCutscene(){
         uiObjectiveTexts.Show();
         uiInteract.Show();
+        enableCursor = true;
     }
     public void UpdateObjectiveTexts(string mainText, string description){
         uiObjectiveTexts.objectiveText.text = mainText;
         uiObjectiveTexts.objectiveDescription.text = description;
     }
+
 }
 
 

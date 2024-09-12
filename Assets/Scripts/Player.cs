@@ -18,10 +18,10 @@ public class Player : MonoBehaviour, IDamagable
     public int attackDamage;
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
-    
     public Transform spawnPoint;
     float hitCountTimer;
     public float hitCountResetTime;
+    bool enableDetectInteractableObject;
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
@@ -65,12 +65,13 @@ public class Player : MonoBehaviour, IDamagable
         if(hitCountTimer <= 0){
             ResetHitCountTimer();
         }
-    
+        if(enableDetectInteractableObject){
+            DetectInteractableObject();
+        }
         moveDirection = move.ReadValue<Vector3>();
        
         anim.SetBool(isWalkingString,moveDirection != Vector3.zero);
         
-        DetectInteractableObject();
     }
     private void FixedUpdate() {
         moveDirection = moveDirection.x * transform.right + moveDirection.z * transform.forward;
@@ -129,5 +130,12 @@ public class Player : MonoBehaviour, IDamagable
     }
     public void ResetHitCountTimer(){
         hitCountTimer = hitCountResetTime;
+    }
+
+    public void EnableDetect(){
+        enableDetectInteractableObject = true;
+    }
+    public void DisableDetect(){
+        enableDetectInteractableObject = false;
     }
 }

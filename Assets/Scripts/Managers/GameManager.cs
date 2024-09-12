@@ -30,10 +30,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         Time.timeScale = 1;
         isPaused = false;
         foreach(VideoPlayer videoPlayer in FindObjectsOfType<VideoPlayer>()){
-            videoPlayer.Play();
+            if(videoPlayer.isPaused){
+                videoPlayer.Play();
+            }
         }
-    }
-    private void Update() {
-        
     }
 }
