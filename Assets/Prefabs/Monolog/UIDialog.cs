@@ -9,6 +9,7 @@ public class UIDialog : UIBase
     }
     public override void Show(){
         base.Show();
+        UIManager.instance.HideUIForCutscene();
         Camera.main.GetComponent<FPSCamera>().DisableCamera();
         GetComponentInChildren<RectTransform>().DOAnchorPosY(300, 0.5f).SetEase(Ease.OutBack);
     }

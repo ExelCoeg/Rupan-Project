@@ -52,9 +52,9 @@ public class Player : MonoBehaviour, IDamagable
         interact = playerControls.Player.Interact;
         attack.performed += MeleeAttack;
         interact.performed += Interact;
-        interact.Enable();
-        attack.Enable();
-        move.Enable();
+        // interact.Enable();
+        // attack.Enable();
+        // move.Enable();
     }
     private void OnDisable() {
         move.Disable();
@@ -112,7 +112,7 @@ public class Player : MonoBehaviour, IDamagable
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        if(Physics.Raycast(ray, out hit, 5f,LayerMask.GetMask("Interactable"))){
+        if(Physics.Raycast(ray, out hit, 2f,LayerMask.GetMask("Interactable"))){
             InteractableObject detectedInteractableObject = hit.collider.GetComponent<InteractableObject>();
             if(detectedInteractableObject != null){
                 currentInteractableObject = detectedInteractableObject;

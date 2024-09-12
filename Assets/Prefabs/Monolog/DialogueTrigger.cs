@@ -21,12 +21,12 @@ public class DialogueLine
 public class Dialogue
 {
     public List<DialogueLine> dialogueLines = new List<DialogueLine>();
+    public PlayableDirector playableDirectorTrigger;
 }
  
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
-    public PlayableDirector director;
     public bool isPlayInStart = false;
     public bool isPlayeOnce = true;
     public bool isPlayed = false;
@@ -37,7 +37,7 @@ public class DialogueTrigger : MonoBehaviour
         }
     }
  
-    public bool TriggerDialogue()
+    public virtual bool TriggerDialogue()
     {
         print("TriggerDialogue");
         return DialogueManager.Instance.StartDialogue(dialogue);

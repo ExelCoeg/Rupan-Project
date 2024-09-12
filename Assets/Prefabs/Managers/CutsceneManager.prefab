@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutscenes:
+  - {fileID: 8953221189718695153}
   - {fileID: 2159230974187156676}
 --- !u!1 &6565778532995072593
 GameObject:
@@ -565,7 +566,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 51171c43d19322c4c8c9a49aa53132a4, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0

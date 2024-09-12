@@ -172,11 +172,11 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
-  fire:
-    m_Name: Fire
+  attack:
+    m_Name: Attack
     m_Type: 0
     m_ExpectedControlType: 
-    m_Id: a011d51b-f25e-44eb-a167-4fcda2749b35
+    m_Id: 02b69287-937c-4f01-822b-247f5657164d
     m_Processors: 
     m_Interactions: 
     m_SingletonActionBindings: []
@@ -304,6 +304,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 5338764080035873201}
+  look:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 7f97150a-95ee-4cd8-9daf-e6c2466fe485
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   mouseSensitivity: 5
   disable: 0
 --- !u!114 &3717262990582295589

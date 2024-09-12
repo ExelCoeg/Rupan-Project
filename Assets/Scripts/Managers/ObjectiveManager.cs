@@ -9,5 +9,6 @@ public class ObjectiveManager: SingletonMonoBehaviour<ObjectiveManager>{
     public int currentObjectiveIndex = 0;
     public void Init() {
         Instantiate(objectives[currentObjectiveIndex],Vector3.zero,Quaternion.identity,transform);
+
     }
 }

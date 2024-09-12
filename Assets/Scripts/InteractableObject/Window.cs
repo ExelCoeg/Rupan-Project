@@ -1,6 +1,7 @@
 using UnityEngine;
 public class Window : InteractableObject
 {
+    public bool interacted = false;
     public override void Awake()
     {
         base.Awake();
@@ -11,6 +12,7 @@ public class Window : InteractableObject
     public override void Interacted()
     {
         //timeline watching the window
-        CutsceneManager.instance.PlayCutscene(0);
+        interacted = true;
+        CutsceneManager.instance.PlayCutscene("SoundSourceCutscene");
     }
 }

@@ -19,7 +19,7 @@ public class DialogueManager : MonoBehaviour
     public float typingSpeed = 0.2f;
  
     public Animator animator;
- 
+    public Dialogue currentDialogue;
     private void Awake()
     {
         if (Instance == null)
@@ -30,6 +30,7 @@ public class DialogueManager : MonoBehaviour
  
     public bool StartDialogue(Dialogue dialogue)
     {
+        currentDialogue = dialogue;
         if (isDialogueActive)
         {
             return false;
@@ -80,9 +81,12 @@ public class DialogueManager : MonoBehaviour
             yield return new WaitForSeconds(typingSpeed);
         }
     }
- 
     void EndDialogue()
     {
+        if(currentDialogue.playableDirectorTrigger != null){
+            print("Play playable director");
+            currentDialogue.playableDirectorTrigger.Play();
+        }
         isDialogueActive = false;
         uiDialog.Hide();
     }

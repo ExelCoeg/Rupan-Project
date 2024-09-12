@@ -10,4 +10,16 @@ public class CutsceneManager : SingletonMonoBehaviour<CutsceneManager>
     {
         cutscenes[index].Play();   
     }
+
+    public void PlayCutscene(string name)
+    {
+        foreach (PlayableDirector cutscene in cutscenes)
+        {
+            if (cutscene.name == name)
+            {
+                cutscene.Play();
+                return;
+            }
+        }
+    }
 }

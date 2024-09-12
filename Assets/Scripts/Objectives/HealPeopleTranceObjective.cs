@@ -13,6 +13,9 @@ public class HealPeopleTranceObjective : Objective
         //     person.enabled = true;
         // }
     // }
+    public override void Update() {
+        base.Update();
+    }
     public void HealPerson(){
         peopleHealed++;
         if(peopleHealed >= peopleToHeal){

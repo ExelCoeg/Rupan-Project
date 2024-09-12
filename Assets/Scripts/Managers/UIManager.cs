@@ -11,12 +11,16 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIPause uiPausePrefab;
     public UIInteract uiInteractPrefab;
     public UIObjectiveTexts uiObjectiveTextsPrefab;
+    public UIBook uiBookPrefab;
+    public UIBlackScreen uiBlackScreenPrefab;
 
     //------ScriptReferences----
     [Header("UI References")]
     public UIPause uiPause;
     public UIInteract uiInteract;
     public UIObjectiveTexts uiObjectiveTexts;
+    public UIBook uiBook;
+    public UIBlackScreen uiBlackScreen;
 
     [Header("Canvas")]
     public Transform canvas;
@@ -24,7 +28,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiObjectiveTexts = Instantiate(uiObjectiveTextsPrefab,canvas);
         uiInteract = Instantiate(uiInteractPrefab,canvas);
         uiPause = Instantiate(uiPausePrefab,canvas);
-        // uiObjectiveTexts.Hide();
+        uiBook = Instantiate(uiBookPrefab,canvas);
+        uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
+        uiBook.Hide();
+        uiObjectiveTexts.Hide();
         uiInteract.Hide();
         uiPause.Hide();
     }
@@ -84,9 +91,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiInteract.Show();
         enableCursor = true;
     }
-    public void UpdateObjectiveTexts(string mainText, string description){
+    public void UpdateObjectiveTexts(string mainText){
         uiObjectiveTexts.objectiveText.text = mainText;
-        uiObjectiveTexts.objectiveDescription.text = description;
     }
 
 }

@@ -6,5 +6,4 @@ using TMPro;
 public class UIObjectiveTexts : UIBase
 {
     public TextMeshProUGUI objectiveText;
-    public TextMeshProUGUI objectiveDescription;
 }

@@ -9,7 +9,7 @@ public class SearchRings : Objective
 
     public override void Update() {
         base.Update();
-        description = "Collected rings " + ringsFound + "/" + ringsToFind;
+        mainText = "Collected rings " + ringsFound + "/" + ringsToFind;
         
         if(ringsFound >= ringsToFind){
             CompleteObjective();

@@ -8,4 +8,10 @@ public class SoundSourceObjective : Objective
     private void Start() {
         window.enabled = true;
     }
+    public override void Update() {
+        base.Update();
+        if(window.interacted){
+            CompleteObjective();
+        }
+    }
 }
