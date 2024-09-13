@@ -1,20 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video;
 
-public class TV : InteractableObject
+public class TV : MonoBehaviour
 {
-    private VideoPlayer videoPlayer;
+    public VideoPlayer videoPlayer;
     
-    public override void Awake() {
-        base.Awake();
+    public void Awake() {
         videoPlayer = GetComponentInChildren<VideoPlayer>();
     }
-    public override void Interacted(){
-        if(videoPlayer.isPlaying) StopVideo();
-        else PlayVideo();
-    }
+
 
     public void PlayVideo(){
         videoPlayer.Play();

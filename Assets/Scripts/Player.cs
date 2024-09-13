@@ -1,27 +1,45 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Playables;
 public class Player : MonoBehaviour, IDamagable
 {
     Rigidbody rb;
-    public int hitCount;
-    public float speed;
-    public PlayerInputActions playerControls;   
-    public InputAction move;
-    public InputAction attack;
-    public InputAction interact;
-    public InteractableObject currentInteractableObject;
     Animator anim;
     Vector3 moveDirection;
     RaycastHit hit;
+    public int hitCount;
+    public float speed;
+    public Transform spawnPoint;
+    public PlayerInputActions playerControls;   
+    [Header("Player Input Actions")]
+    public InputAction move;
+    public InputAction attack;
+    public InputAction interact;
+    public InputAction use;
+    [Header("Interactable Object")]
+    public InteractableObject currentInteractableObject;
+    [Header("Attack")]
     public Transform attackPoint;
     public float attackRadius;
     public int attackDamage;
-    private string isWalkingString = "isWalking";
-    private string attackString = "attack";
-    public Transform spawnPoint;
+    [Header("Hit Count Reset")]
     float hitCountTimer;
     public float hitCountResetTime;
+    [Header("Detect Interactable Object")]
     public bool enableDetectInteractableObject = true;
+
+    [Header("Right Hand")]
+    public Transform rightHand;
+    public PickupableObject currentPickupableObject; 
+    [Header("Player Timelines")]
+
+    public List<PlayableDirector> playerTimelines;
+    
+    private string isWalkingString = "isWalking";
+    private string attackString = "attack";
+
+
     private void Awake() {
         rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
@@ -37,12 +55,14 @@ public class Player : MonoBehaviour, IDamagable
         move.Enable();
         attack.Enable();
         interact.Enable();
+        use.Enable();
     }
     public void DisableControls(){
         print("DisableControls");
         move.Disable();
         attack.Disable();
         interact.Disable();
+        use.Disable();
     }
 
     
@@ -50,16 +70,13 @@ public class Player : MonoBehaviour, IDamagable
         move = playerControls.Player.Move;
         attack = playerControls.Player.Attack;
         interact = playerControls.Player.Interact;
+        use = playerControls.Player.Use;
         attack.performed += MeleeAttack;
         interact.performed += Interact;
-        // interact.Enable();
-        // attack.Enable();
-        // move.Enable();
+        use.performed += Use;
     }
     private void OnDisable() {
-        move.Disable();
-        attack.Disable();
-        interact.Disable();
+        DisableControls();
     }
     private void Update() {
         if(GameManager.instance.isPaused) return;
@@ -102,6 +119,11 @@ public class Player : MonoBehaviour, IDamagable
         }
     }
 
+    private void Use(InputAction.CallbackContext context){
+        if(currentPickupableObject != null){
+            currentPickupableObject.Use();
+        }
+    }
     private void DetectInteractableObject(){
         if(currentInteractableObject != null){
             UIManager.instance.uiInteract.Show();
@@ -148,16 +170,35 @@ public class Player : MonoBehaviour, IDamagable
         enableDetectInteractableObject = false;
         interact.Disable();
     }
-    // public void EnableMovement(){
-    //     move.Enable();
-    // }
-    // public void DisableMovement(){
-    //     move.Disable();
-    // }
-    // public void DisableAttack(){
-    //     attack.Disable();
-    // }
-    // public void EnableAttack(){
-    //     attack.Enable();
-    // }
+    public void DisableMove()
+    {
+        move.Disable();
+    }
+    public void EnableMove()
+    {
+        move.Enable();
+    }
+    public void SetRightHandObject(PickupableObject pickupableObject){
+        pickupableObject.GetComponent<Collider>().enabled = false;
+        currentPickupableObject = pickupableObject;
+        currentPickupableObject.gameObject.transform.SetParent(rightHand);
+        currentPickupableObject.gameObject.transform.localPosition = Vector3.zero;
+        currentPickupableObject.gameObject.transform.localRotation = Quaternion.identity;
+    }
+
+    public void RemoveRightHandObject(){
+        if(currentPickupableObject != null){
+            currentPickupableObject.gameObject.transform.SetParent(null);
+            currentPickupableObject = null;
+        }
+    }
+
+    public void PlayTimeline(string timelineName){
+        foreach (PlayableDirector timeline in playerTimelines)
+        {
+            if(timeline.name == timelineName){
+                timeline.Play();
+            }
+        }
+    }
 }

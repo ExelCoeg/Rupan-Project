@@ -2,6 +2,7 @@ using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
     public bool isDebug = false;
+    public bool canEnableOutline = true;
     Material outline;  
     public abstract void Interacted(); 
     public virtual void Awake() {

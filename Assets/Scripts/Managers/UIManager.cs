@@ -13,6 +13,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIObjectiveTexts uiObjectiveTextsPrefab;
     public UIBook uiBookPrefab;
     public UIBlackScreen uiBlackScreenPrefab;
+    public UIUse uiUsePrefab;
 
     //------ScriptReferences----
     [Header("UI References")]
@@ -21,6 +22,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIObjectiveTexts uiObjectiveTexts;
     public UIBook uiBook;
     public UIBlackScreen uiBlackScreen;
+    public UIUse uiUse;
 
     [Header("Canvas")]
     public Transform canvas;
@@ -30,6 +32,8 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiPause = Instantiate(uiPausePrefab,canvas);
         uiBook = Instantiate(uiBookPrefab,canvas);
         uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
+        uiUse = Instantiate(uiUsePrefab,canvas);
+        uiUse.Hide();
         uiBook.Hide();
         uiObjectiveTexts.Hide();
         uiInteract.Hide();
