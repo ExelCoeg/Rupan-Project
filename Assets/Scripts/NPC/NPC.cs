@@ -18,7 +18,6 @@ public class NPC : MonoBehaviour,IDamagable
 
     [Header("General")]
     [SerializeField] State state;
-    [Space]
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Player player;
 
@@ -36,10 +35,11 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] bool isWalkPointSet;
 
     [Header("Detection System")]
-    public Transform playerTransform;
     public float detectionRadius;
     public float detectionAngle;
     [SerializeField] LayerMask obstructionMask;
+    [Space]
+    public Transform playerTransform;
     public bool canSeePlayer;
 
     [Header("Idle System")]
@@ -48,6 +48,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float lastIdleTime;
     [SerializeField] float scanningAngle;
     [SerializeField] float scanningSpeed;
+    [Space]
     [SerializeField] bool isScanning;
     private Quaternion startRotation;
     private Quaternion endRotation;
@@ -58,11 +59,25 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float damage;
     [SerializeField] float attackSpeed;//based on second
     [SerializeField] float rangeAttack;
+    [Space]
     [SerializeField] float lastAttackTime;
     [SerializeField] bool isAlreadyAttack;
+    [Header("Health System")]
+    [SerializeField] float maxHealth = 3;
+    [Space]
+    [SerializeField] float currentHealth = 3;
 
     // Posisi terakhir player terlihat
     private Vector3 lastKnownPlayerPosition;
+    [Header("Animation")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private string idleAnim;
+    [SerializeField] private string walkAnim;
+    [SerializeField] private string runAnim;
+    [SerializeField] private string attackAnim;
+    [SerializeField] private string fallAnim;
+    [SerializeField] private string standUpAnim;
+
 
     // Scanning rotation state
     
@@ -73,6 +88,7 @@ public class NPC : MonoBehaviour,IDamagable
         agent.speed = movSpeed;
         player = FindAnyObjectByType<Player>();
         playerTransform = player.transform;
+        ChangeState(State.PATROLING);
     }
 
     void Update()
@@ -93,7 +109,6 @@ public class NPC : MonoBehaviour,IDamagable
                 AttackState();
                 break;
             case State.FAINT:
-                FAINT();
                 break;
         }
         FieldOfViewCheck();
@@ -152,6 +167,28 @@ public class NPC : MonoBehaviour,IDamagable
             lastIdleTime = Time.time;
         }
         state = newState;
+        switch (state)
+        {
+            case State.IDLE:
+                animator.Play(idleAnim);
+                break;
+            case State.PATROLING:
+                movCurrentSpeed = movSpeed;
+                animator.Play(walkAnim);
+                break;
+            case State.CHASE:
+                movCurrentSpeed = movSpeedRun;
+                animator.Play(runAnim);
+                break;
+            case State.ATTACK:
+                animator.Play(idleAnim);
+                break;
+            case State.FAINT:
+                animator.Play(fallAnim);
+                FAINT();
+                break;
+        }
+        agent.speed = movCurrentSpeed;
     }
 
     public void IdleState()
@@ -205,12 +242,25 @@ public class NPC : MonoBehaviour,IDamagable
         if (!isAlreadyAttack && (Time.time - lastAttackTime) > attackSpeed)
         {
             Debug.Log("attackStart");
-            Invoke(nameof(Attack), 1f);
+            animator.Play(attackAnim,0,0);
             isAlreadyAttack = true;
         }
     }
 
-    public void FAINT() { }
+    public void FAINT() 
+    { 
+        SetDestination(transform.position);
+        StartCoroutine(Revive(5));
+    }
+
+    public IEnumerator Revive(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        animator.Play(standUpAnim);
+        currentHealth = maxHealth;
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        ChangeState(State.PATROLING);
+    }
 
     public void SetDestination(Vector3 targetWalkPoint)
     {
@@ -221,13 +271,21 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void Attack()
     {
-        Debug.Log("attack running");
+        if (Vector3.Distance(transform.position,playerTransform.position) < rangeAttack)
+        {
+            player.TakeDamage((int)damage);
+        }
         lastAttackTime = Time.time;
         isAlreadyAttack = false;
     }
     public void TakeDamage(int damage)
     {
-        
+        Debug.Log("Zombie take damage");
+        currentHealth -= damage;
+        if (currentHealth <= 0)
+        {
+            ChangeState(State.FAINT);
+        }
     }
 
     private void Scanning()
@@ -294,5 +352,7 @@ public class NPC : MonoBehaviour,IDamagable
             canSeePlayer = false;
         }
     }
-
+    private void OnDrawGizmos() {
+        Gizmos.DrawWireSphere(transform.position,rangeAttack);
+    }
 }

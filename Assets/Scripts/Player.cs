@@ -87,7 +87,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Interact(InputAction.CallbackContext context){
         if(currentInteractableObject != null){
-            print("Interact " + currentInteractableObject.name);
+             print("Interact " + currentInteractableObject.name);
             currentInteractableObject.Interacted();
         }
     }
