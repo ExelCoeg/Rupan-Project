@@ -12,7 +12,6 @@ public class Objective : MonoBehaviour {
     public void CompleteObjective(){
         isComplete = true;
         Destroy(gameObject);
-        ObjectiveManager.instance.currentObjectiveIndex++;
     }
   
 }

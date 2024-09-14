@@ -31,12 +31,12 @@ public class FPSCamera : MonoBehaviour
         float mouseY = look.ReadValue<Vector2>().y;
 
         verticalRotation -= mouseY * mouseSensitivity;
-        verticalRotation = Mathf.Clamp(verticalRotation, -45f, 45f);
+        verticalRotation = Mathf.Clamp(verticalRotation, -45f, 60f);
 
-        horizontalRotation = Target.rotation.eulerAngles.y +  mouseX * mouseSensitivity;
+        horizontalRotation =  Target.rotation.eulerAngles.y +  mouseX * mouseSensitivity;
 
-        transform.rotation = Quaternion.Euler(verticalRotation, horizontalRotation, 0);
-        Target.rotation = Quaternion.Euler(0, horizontalRotation, 0);
+        transform.rotation = Quaternion.Euler(verticalRotation, horizontalRotation - 180, 0);
+        Target.rotation = Quaternion.Euler(0, horizontalRotation , 0);
     }
     public void OnEnable(){
         look = playerControls.Player.Look;

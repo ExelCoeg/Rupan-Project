@@ -21,7 +21,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     public void PauseGame(){
         Time.timeScale = 0;
         foreach(VideoPlayer videoPlayer in FindObjectsOfType<VideoPlayer>()){
-            videoPlayer.Pause();
+            if(videoPlayer.isPlaying){
+                videoPlayer.Pause();
+            }
         }
         isPaused = true;
     }

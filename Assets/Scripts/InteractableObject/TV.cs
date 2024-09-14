@@ -8,8 +8,6 @@ public class TV : MonoBehaviour
     public void Awake() {
         videoPlayer = GetComponentInChildren<VideoPlayer>();
     }
-
-
     public void PlayVideo(){
         videoPlayer.Play();
     }

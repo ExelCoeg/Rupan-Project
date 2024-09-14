@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5205638403920140860}
   - component: {fileID: 2094263586371332732}
   m_Layer: 6
-  m_Name: Sofa
+  m_Name: CouchSofa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,13 +28,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1523831441463311288}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.70576835, z: -0, w: 0.7084427}
+  m_LocalRotation: {x: 0, y: 0.70576644, z: 0, w: 0.7084446}
   m_LocalPosition: {x: 1.0365721, y: 0, z: 0.843925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 89.783, z: 0}
 --- !u!33 &8609871925984259466
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -64,6 +64,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 4682a175a86a7614dab927074507fd09, type: 2}
+  - {fileID: 2100000, guid: f07edea6c5ab1df43a4954a9b5039ef6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -119,5 +120,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 04458c78d7eaa7048851df82621c9ea3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectName: Sofa
   isDebug: 0
-  canEnableOutline: 1
+  isInteractable: 0

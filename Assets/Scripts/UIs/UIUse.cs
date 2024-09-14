@@ -1,11 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using TMPro;
 
 public class UIUse : UIBase
 {
-    public override void Show()
-    {
-        base.Show();
+    public TextMeshProUGUI itemNameText;
+    public void UpdateText(string itemName){
+        itemNameText.text = "Press E to use " + itemName;
     }
 }

@@ -46,7 +46,7 @@ public class Player : MonoBehaviour, IDamagable
         playerControls = new PlayerInputActions();
     }
     private void Start() {
-        transform.position = spawnPoint.position;
+        // transform.position = spawnPoint.position;
     }
 
 
@@ -99,7 +99,7 @@ public class Player : MonoBehaviour, IDamagable
         
     }
     private void FixedUpdate() {
-        moveDirection = moveDirection.x * transform.right + moveDirection.z * transform.forward;
+        moveDirection = moveDirection.x * -transform.right + moveDirection.z * -transform.forward;
         rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
     }
 
@@ -120,7 +120,7 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     private void Use(InputAction.CallbackContext context){
-        if(currentPickupableObject != null){
+        if(currentPickupableObject != null && currentPickupableObject.isUsable){
             currentPickupableObject.Use();
         }
     }
@@ -136,7 +136,7 @@ public class Player : MonoBehaviour, IDamagable
         
         if(Physics.Raycast(ray, out hit, 2f,LayerMask.GetMask("Interactable"))){
             InteractableObject detectedInteractableObject = hit.collider.GetComponent<InteractableObject>();
-            if(detectedInteractableObject != null){
+            if(detectedInteractableObject != null && detectedInteractableObject.isInteractable){
                 currentInteractableObject = detectedInteractableObject;
                 currentInteractableObject.EnableOutline();
             }
@@ -173,10 +173,12 @@ public class Player : MonoBehaviour, IDamagable
     public void DisableMove()
     {
         move.Disable();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
     public void EnableMove()
     {
         move.Enable();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
     }
     public void SetRightHandObject(PickupableObject pickupableObject){
         pickupableObject.GetComponent<Collider>().enabled = false;
@@ -184,13 +186,15 @@ public class Player : MonoBehaviour, IDamagable
         currentPickupableObject.gameObject.transform.SetParent(rightHand);
         currentPickupableObject.gameObject.transform.localPosition = Vector3.zero;
         currentPickupableObject.gameObject.transform.localRotation = Quaternion.identity;
+        UIManager.instance.uiUse.UpdateText(currentPickupableObject.objectName);
     }
 
     public void RemoveRightHandObject(){
         if(currentPickupableObject != null){
-            currentPickupableObject.gameObject.transform.SetParent(null);
+            currentPickupableObject.ReturnToOriginalPosition();
             currentPickupableObject = null;
         }
+        UIManager.instance.uiUse.Hide();
     }
 
     public void PlayTimeline(string timelineName){

@@ -51,9 +51,11 @@ MonoBehaviour:
   uiObjectiveTextsPrefab: {fileID: 3403841433938693263, guid: 68dfb27bc4d4eae41a37c7b78cf09d84, type: 3}
   uiBookPrefab: {fileID: 4664674680588543798, guid: d3806b431b6fca748a15def8160b0d5e, type: 3}
   uiBlackScreenPrefab: {fileID: 837332342358287673, guid: 55dc50519f8d6524284bc9d2a13f93c4, type: 3}
+  uiUsePrefab: {fileID: 4510635300933146999, guid: 95061d6d96aa8124cacef2896d9d674f, type: 3}
   uiPause: {fileID: 0}
   uiInteract: {fileID: 0}
   uiObjectiveTexts: {fileID: 0}
   uiBook: {fileID: 0}
   uiBlackScreen: {fileID: 0}
+  uiUse: {fileID: 0}
   canvas: {fileID: 0}

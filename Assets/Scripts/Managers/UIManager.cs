@@ -31,11 +31,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiInteract = Instantiate(uiInteractPrefab,canvas);
         uiPause = Instantiate(uiPausePrefab,canvas);
         uiBook = Instantiate(uiBookPrefab,canvas);
-        uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
         uiUse = Instantiate(uiUsePrefab,canvas);
+        uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
         uiUse.Hide();
         uiBook.Hide();
-        uiObjectiveTexts.Hide();
+        // uiObjectiveTexts.Hide();
         uiInteract.Hide();
         uiPause.Hide();
     }
@@ -87,18 +87,19 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public void HideUIForCutscene(){
         uiObjectiveTexts.Hide();
         uiInteract.Hide();
+        uiUse.Hide();
         enableCursor = false;
 
     }
     public void ShowUIForCutscene(){
         uiObjectiveTexts.Show();
         uiInteract.Show();
+        uiUse.Show();
         enableCursor = true;
     }
     public void UpdateObjectiveTexts(string mainText){
         uiObjectiveTexts.objectiveText.text = mainText;
     }
-
 }
 
 

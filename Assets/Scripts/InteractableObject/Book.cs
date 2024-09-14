@@ -9,6 +9,6 @@ public class Book : InteractableObject
     {
         UIManager.instance.uiBook.Show();
     }
-
+    
 
 }

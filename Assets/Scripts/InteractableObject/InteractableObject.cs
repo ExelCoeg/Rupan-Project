@@ -1,8 +1,10 @@
 using UnityEngine;
 public abstract class InteractableObject : MonoBehaviour
 {
+    public string objectName;
     public bool isDebug = false;
-    public bool canEnableOutline = true;
+    public bool isInteractable;
+    // public bool canEnableOutline = true;
     Material outline;  
     public abstract void Interacted(); 
     public virtual void Awake() {
@@ -28,4 +30,11 @@ public abstract class InteractableObject : MonoBehaviour
             outline.SetFloat("_Scale", 1.025f);
         }
    }
+
+   public void EnableInteractable(){
+        isInteractable = true;     
+   }
+    public void DisableInteractable(){
+        isInteractable = false;     
+    }
 }
