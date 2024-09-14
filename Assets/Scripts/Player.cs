@@ -8,6 +8,8 @@ public class Player : MonoBehaviour, IDamagable
     Animator anim;
     Vector3 moveDirection;
     RaycastHit hit;
+    [Header("On What Ground")]
+    public GroundType onWhatGround;
     public int hitCount;
     public float speed;
     public Transform spawnPoint;
@@ -210,4 +212,22 @@ public class Player : MonoBehaviour, IDamagable
     public void DisableAttack(){
         attack.Disable();
     }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.gameObject.CompareTag("WoodFloor")){
+            onWhatGround = GroundType.WOOD;
+        }
+        else if(other.gameObject.CompareTag("GrassFloor")){
+            onWhatGround = GroundType.GRASS;
+        }
+        else if(other.gameObject.CompareTag("GravelFloor")){
+            onWhatGround = GroundType.GRAVEL;
+        }
+    }
+}
+
+public enum GroundType{
+    GRASS,
+    GRAVEL,
+    WOOD
 }

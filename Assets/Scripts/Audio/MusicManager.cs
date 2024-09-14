@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
-    public static MusicManager Instance;
+    public static MusicManager instance;
 
 	[SerializeField]
 	private MusicLibrary musicLibrary;
@@ -12,13 +12,13 @@ public class MusicManager : MonoBehaviour
 
 	private void Awake()
 	{
-		if (Instance != null)
+		if (instance != null)
 		{
 			Destroy(gameObject);
 		}
 		else
 		{
-			Instance = this;
+			instance = this;
 			DontDestroyOnLoad(gameObject);
 		}
 	}

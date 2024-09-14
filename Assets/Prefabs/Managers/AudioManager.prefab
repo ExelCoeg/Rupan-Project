@@ -205,7 +205,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dbe7e1c99b101c4b9fa25f6420bfdc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundEffects: []
+  soundEffects:
+  - groupID: GrassWalk
+    clips:
+    - {fileID: 8300000, guid: e0f238a89cba03b48940a3f6db9c2a88, type: 3}
+    - {fileID: 8300000, guid: 2ddaf5b24cef03d4a90d1f02ddc06c1d, type: 3}
+    - {fileID: 8300000, guid: db4991b11d9680a4cae5fff1c4b92e81, type: 3}
+    - {fileID: 8300000, guid: 81430491860235b4f8ba04859788d5d5, type: 3}
+    - {fileID: 8300000, guid: 5304684245ba7d4419ce9cf4d9c31c76, type: 3}
+    - {fileID: 8300000, guid: d4bfed475d66e8a45a5d377b1503c64a, type: 3}
+  - groupID: WoodWalk
+    clips:
+    - {fileID: 8300000, guid: 805f17f3c0f67a643880c4df600dd06e, type: 3}
+    - {fileID: 8300000, guid: 0dab4ce6f206c91418812df40d60de61, type: 3}
+    - {fileID: 8300000, guid: e26b3d77369b4024cb1755df33c566cd, type: 3}
+    - {fileID: 8300000, guid: be587e189d9306544a62937abb220978, type: 3}
+    - {fileID: 8300000, guid: 85ceed987895b454f9e2a15b445f5e63, type: 3}
+    - {fileID: 8300000, guid: 40ae82d37bb3b7c46bc677784abb21ca, type: 3}
+  - groupID: GravelWalk
+    clips:
+    - {fileID: 8300000, guid: 257ef67c97521ab4b92aa0a0453c7e0a, type: 3}
+    - {fileID: 8300000, guid: 92ece0e4d5fe3fa4bad7bdfb0bcc5018, type: 3}
+    - {fileID: 8300000, guid: 53720455bb4107e4bad362424f439766, type: 3}
+    - {fileID: 8300000, guid: 39ab419b318862149a42deb05d5b28ee, type: 3}
 --- !u!114 &2419340947193298625
 MonoBehaviour:
   m_ObjectHideFlags: 0

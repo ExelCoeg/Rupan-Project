@@ -3,22 +3,22 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour 
 {
-    public static SoundManager Instance;
+    public static SoundManager instance;
 
     [SerializeField]
     private SoundLibrary sfxLibrary;
     [SerializeField]
-    private AudioSource sfx2DSource;
+    public AudioSource sfx2DSource;
 
     private void Awake()
     {
-        if (Instance != null)
+        if (instance != null)
         {
             Destroy(gameObject);
         }
         else
         {
-            Instance = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
     }
