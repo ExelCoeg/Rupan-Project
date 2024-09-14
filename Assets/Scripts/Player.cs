@@ -178,7 +178,7 @@ public class Player : MonoBehaviour, IDamagable
     public void EnableMove()
     {
         move.Enable();
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
     public void SetRightHandObject(PickupableObject pickupableObject){
         pickupableObject.GetComponent<Collider>().enabled = false;

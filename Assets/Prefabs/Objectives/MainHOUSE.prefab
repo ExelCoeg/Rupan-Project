@@ -1363,11 +1363,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 368346172177817473, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 574772707387953685, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 576386145808697824, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_Name
@@ -1375,11 +1375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3768583993357267327, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 4428721291994665634, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 4704052688656830551, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: speed
@@ -1387,19 +1387,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4704052688656830551, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: isInteractable
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4807365063898016741, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 6135544278207397417, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 6336205156903016998, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 6565401799833117564, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1443,19 +1443,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6723407020727592865, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 7570221486399641701, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     - target: {fileID: 8099729008375879016, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8737227492606840305, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 136
+      value: 142
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2993,7 +2993,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectName: 
   isDebug: 0
-  isInteractable: 0
+  isInteractable: 1
 --- !u!4 &4193164273271176082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 77c514256d693e844b65d5771f60fdd7, type: 3}
