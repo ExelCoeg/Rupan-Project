@@ -8,6 +8,11 @@ public class NPC1DialogueTrigger : DialogueTrigger
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         door.Open(playerTransform.position);
         door.gameObject.GetComponent<Collider>().enabled =true;
+        
         return base.TriggerDialogue();
+    }
+
+    private void Start() {
+        door = FindObjectOfType<Door>();
     }
 }

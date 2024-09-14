@@ -49,35 +49,6 @@ public class Player : MonoBehaviour, IDamagable
         // transform.position = spawnPoint.position;
     }
 
-
-    public void EnableControls(){
-        print("EnableControls");
-        move.Enable();
-        attack.Enable();
-        interact.Enable();
-        use.Enable();
-    }
-    public void DisableControls(){
-        print("DisableControls");
-        move.Disable();
-        attack.Disable();
-        interact.Disable();
-        use.Disable();
-    }
-
-    
-    private void OnEnable() {
-        move = playerControls.Player.Move;
-        attack = playerControls.Player.Attack;
-        interact = playerControls.Player.Interact;
-        use = playerControls.Player.Use;
-        attack.performed += MeleeAttack;
-        interact.performed += Interact;
-        use.performed += Use;
-    }
-    private void OnDisable() {
-        DisableControls();
-    }
     private void Update() {
         if(GameManager.instance.isPaused) return;
         if(hitCount <= 0){
@@ -162,24 +133,6 @@ public class Player : MonoBehaviour, IDamagable
         hitCountTimer = hitCountResetTime;
     }
 
-    public void EnableDetect(){
-        enableDetectInteractableObject = true;
-        interact.Enable();
-    }
-    public void DisableDetect(){
-        enableDetectInteractableObject = false;
-        interact.Disable();
-    }
-    public void DisableMove()
-    {
-        move.Disable();
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
-    }
-    public void EnableMove()
-    {
-        move.Enable();
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
-    }
     public void SetRightHandObject(PickupableObject pickupableObject){
         pickupableObject.GetComponent<Collider>().enabled = false;
         currentPickupableObject = pickupableObject;
@@ -204,5 +157,57 @@ public class Player : MonoBehaviour, IDamagable
                 timeline.Play();
             }
         }
+    }
+    public void EnableMove()
+    {
+        move.Enable();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+    }
+
+    public void EnableControls(){
+        print("EnableControls");
+        move.Enable();
+        interact.Enable();
+        use.Enable();
+    }
+    public void DisableControls(){
+        print("DisableControls");
+        move.Disable();
+        attack.Disable();
+        interact.Disable();
+        use.Disable();
+    }
+
+    
+    private void OnEnable() {
+        move = playerControls.Player.Move;
+        attack = playerControls.Player.Attack;
+        interact = playerControls.Player.Interact;
+        use = playerControls.Player.Use;
+        attack.performed += MeleeAttack;
+        interact.performed += Interact;
+        use.performed += Use;
+    }
+    private void OnDisable() {
+        DisableControls();
+    }
+    public void EnableDetect(){
+        enableDetectInteractableObject = true;
+        interact.Enable();
+    }
+    public void DisableDetect(){
+        enableDetectInteractableObject = false;
+        interact.Disable();
+    }
+    public void DisableMove()
+    {
+        move.Disable();
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    }
+    public void EnableAttack(){
+        attack.Enable();
+    }
+    public void DisableAttack(){
+        attack.Disable();
     }
 }

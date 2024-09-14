@@ -32,9 +32,11 @@ public abstract class InteractableObject : MonoBehaviour
    }
 
    public void EnableInteractable(){
+        print("EnableInteractable");
         isInteractable = true;     
    }
     public void DisableInteractable(){
+        print("DisableInteractable");
         isInteractable = false;     
     }
 }
