@@ -1,27 +1,14 @@
 using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour 
+public class SoundManager : SingletonMonoBehaviour<SoundManager>
 {
-    public static SoundManager instance;
 
     [SerializeField]
     private SoundLibrary sfxLibrary;
     [SerializeField]
     public AudioSource sfx2DSource;
-
-    private void Awake()
-    {
-        if (instance != null)
-        {
-            Destroy(gameObject);
-        }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }
 
     public void PlaySound3D(AudioClip clip, Vector3 pos)
     {

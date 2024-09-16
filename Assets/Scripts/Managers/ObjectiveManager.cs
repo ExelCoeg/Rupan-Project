@@ -20,5 +20,6 @@ public class ObjectiveManager: SingletonMonoBehaviour<ObjectiveManager>{
         currentObjective.CompleteObjective();
         currentObjectiveIndex++;
         SpawnObjective();
+        SoundManager.instance.PlaySound2D("ObjectiveUpdate");
     }
 }

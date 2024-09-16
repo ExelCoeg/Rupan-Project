@@ -3,13 +3,14 @@ using UnityEngine;
 public class NPC1DialogueTrigger : DialogueTrigger
 {
     public Door door;
-    public override bool TriggerDialogue()
+    public override void TriggerDialogue()
     {
         Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         door.Open(playerTransform.position);
         door.gameObject.GetComponent<Collider>().enabled =true;
         
-        return base.TriggerDialogue();
+        base.TriggerDialogue();
+    
     }
 
     private void Start() {

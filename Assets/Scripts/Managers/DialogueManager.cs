@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
- 
-public class DialogueManager : MonoBehaviour
+using UnityEngine.InputSystem;
+
+public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
 {
-    public static DialogueManager Instance;
- 
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
@@ -20,21 +19,25 @@ public class DialogueManager : MonoBehaviour
  
     public Animator animator;
     public Dialogue currentDialogue;
-    private void Awake()
+
+
+    public PlayerInputActions playerInputActions;
+    public InputAction nextDialogueAction;
+    public override void Awake()
     {
-        if (Instance == null)
-            Instance = this;
- 
+        base.Awake();
         lines = new Queue<DialogueLine>();
+        playerInputActions = new PlayerInputActions();
     }
- 
-    public bool StartDialogue(Dialogue dialogue)
+    private void OnEnable() {
+        playerInputActions.Enable();
+        nextDialogueAction = playerInputActions.UI.NextDialogue;
+        nextDialogueAction.performed += ctx => DisplayNextDialogueLine();
+    }
+    public void StartDialogue(Dialogue dialogue)
     {
         currentDialogue = dialogue;
-        if (isDialogueActive)
-        {
-            return false;
-        }
+        
         isDialogueActive = true;
  
         uiDialog.Show();
@@ -47,7 +50,7 @@ public class DialogueManager : MonoBehaviour
         }
  
         DisplayNextDialogueLine();
-        return true;
+
     }
     private void Update() {
         if(isDialogueActive && Input.anyKeyDown){
@@ -89,7 +92,24 @@ public class DialogueManager : MonoBehaviour
         }
         isDialogueActive = false;
         uiDialog.Hide();
+
+        FindObjectOfType<Player>().EnableControls();
     }
 
+
+    public void DisableCharacterIcon(){
+        characterIcon.enabled = false;
+    }
+
+    public void EnableCharacterIcon(){
+        characterIcon.enabled = true;
+    }
+
+    public void EnableNextDialogueAction(){
+        nextDialogueAction.Enable();
+    }
+    public void DisableNextDialogueAction(){
+        nextDialogueAction.Disable();
+    }
    
 }
