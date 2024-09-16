@@ -28,6 +28,7 @@ public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
     public bool isPlayInStart = false;
+    public bool isPlayeOnce = true;
     public bool isPlayed = false;
     private void Start() {
         if (isPlayInStart)
@@ -35,19 +36,23 @@ public class DialogueTrigger : MonoBehaviour
             TriggerDialogue();
         }
     }
-   
-    public virtual void TriggerDialogue()
+ 
+    public virtual bool TriggerDialogue()
     {
-        DialogueManager.instance.StartDialogue(dialogue);
-        isPlayed = true;
+        print("TriggerDialogue");
+        return DialogueManager.Instance.StartDialogue(dialogue);
     }
     private void OnTriggerEnter(Collider other) {
-        if(other.CompareTag("Player"))
+        if(other.CompareTag("Player") && !isPlayInStart)
         {
-            other.GetComponent<Player>().DisableControls();
-            if(!isPlayed){
+            if (isPlayeOnce && !isPlayed)
+            {
+                isPlayed = TriggerDialogue();
+            }else if(!isPlayeOnce){
                 TriggerDialogue();
+
             }
+            
         }
     }
 }

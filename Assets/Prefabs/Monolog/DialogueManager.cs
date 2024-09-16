@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
-using UnityEngine.InputSystem;
-using System;
-public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
+ 
+public class DialogueManager : MonoBehaviour
 {
-    
+    public static DialogueManager Instance;
+ 
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
+ 
     private Queue<DialogueLine> lines;
     public UIDialog  uiDialog;
     public bool isDialogueActive = false;
@@ -19,27 +20,23 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
  
     public Animator animator;
     public Dialogue currentDialogue;
-
-    public PlayerInputActions playerInputActions;
-    public InputAction nextDialogueAction;
-
-    public static event Action onDialogueEnd;
-    public override void Awake()
+    private void Awake()
     {
-        base.Awake();
+        if (Instance == null)
+            Instance = this;
+ 
         lines = new Queue<DialogueLine>();
-        playerInputActions = new PlayerInputActions();
     }
-    public void StartDialogue(Dialogue dialogue)
+ 
+    public bool StartDialogue(Dialogue dialogue)
     {
-
-        print("Starting Dialogue");
-        FindObjectOfType<Player>().DisableControls();
-
         currentDialogue = dialogue;
-    
+        if (isDialogueActive)
+        {
+            return false;
+        }
         isDialogueActive = true;
-    
+ 
         uiDialog.Show();
  
         lines.Clear();
@@ -50,8 +47,13 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
         }
  
         DisplayNextDialogueLine();
+        return true;
     }
-
+    private void Update() {
+        if(isDialogueActive && Input.anyKeyDown){
+            DisplayNextDialogueLine();
+        }
+    }
     public void DisplayNextDialogueLine()
     {
         if (lines.Count == 0)
@@ -87,37 +89,7 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
         }
         isDialogueActive = false;
         uiDialog.Hide();
-        FindObjectOfType<Player>().EnableControls();
-        onDialogueEnd?.Invoke();
     }
 
-    private void OnEnable() {
-        EnableNextDialogueAction();
-        nextDialogueAction = playerInputActions.UI.NextDialogue;
-        nextDialogueAction.performed += ctx => {
-            if(isDialogueActive){
-                DisplayNextDialogueLine();
-            }
-        };
-    }
-    private void OnDisable() {
-        DisableNextDialogueAction();
-    }
-    public void DisableNextDialogueAction(){
-        nextDialogueAction.Disable();
-    }
-    public void EnableNextDialogueAction(){
-        nextDialogueAction.Enable();
-    }
-    
-    public void OnDialougeEnd(){
-        print("OnDialougeEnd");
-    }
-
-    public void DisableImage(){
-        characterIcon.gameObject.SetActive(false);
-    }
-    public void EnableImage(){
-        characterIcon.gameObject.SetActive(true);
-    }
+   
 }

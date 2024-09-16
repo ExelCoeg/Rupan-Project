@@ -3,7 +3,7 @@ public class SingletonMonoBehaviour<T> : MonoBehaviour where T: SingletonMonoBeh
 {
     public static T instance { get; protected set; }
  
-    public virtual void Awake()
+    void Awake()
     {
         if (instance != null && instance != this)
         {

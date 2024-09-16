@@ -352,18 +352,6 @@ MonoBehaviour:
   isDialogueActive: 0
   typingSpeed: 0.01
   animator: {fileID: 7731086583472158281}
-  currentDialogue:
-    dialogueLines: []
-    playableDirectorTrigger: {fileID: 0}
-  nextDialogueAction:
-    m_Name: Next Dialogue
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 02d34f77-3676-4866-890e-857e7d810728
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!1 &5287743832734827652
 GameObject:
   m_ObjectHideFlags: 0
