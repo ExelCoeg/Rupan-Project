@@ -30,9 +30,11 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
         playerInputActions = new PlayerInputActions();
     }
     private void OnEnable() {
-        playerInputActions.Enable();
         nextDialogueAction = playerInputActions.UI.NextDialogue;
-        nextDialogueAction.performed += ctx => DisplayNextDialogueLine();
+        nextDialogueAction.performed += ctx => {
+            if(isDialogueActive)
+            DisplayNextDialogueLine();
+        };
     }
     public void StartDialogue(Dialogue dialogue)
     {
@@ -51,11 +53,6 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
  
         DisplayNextDialogueLine();
 
-    }
-    private void Update() {
-        if(isDialogueActive && Input.anyKeyDown){
-            DisplayNextDialogueLine();
-        }
     }
     public void DisplayNextDialogueLine()
     {

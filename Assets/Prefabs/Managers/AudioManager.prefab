@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.643
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -228,6 +228,12 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 92ece0e4d5fe3fa4bad7bdfb0bcc5018, type: 3}
     - {fileID: 8300000, guid: 53720455bb4107e4bad362424f439766, type: 3}
     - {fileID: 8300000, guid: 39ab419b318862149a42deb05d5b28ee, type: 3}
+  - groupID: Door
+    clips:
+    - {fileID: 8300000, guid: 16c93407d4a165c4e8244c97f2d7de1c, type: 3}
+  - groupID: ObjectiveUpdate
+    clips:
+    - {fileID: 8300000, guid: 153a0eda74f5eda4a935b8d85e674e7e, type: 3}
 --- !u!114 &2419340947193298625
 MonoBehaviour:
   m_ObjectHideFlags: 0
