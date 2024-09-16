@@ -7,7 +7,7 @@ public class Door : InteractableObject
 {
     public bool isOpen = false;
     [SerializeField]
-    private bool isRotatingDoor = false;
+    private bool isRotatingDoor = true;
     [SerializeField]
     private float speed = 1f;
     [Header("Rotation Configs")]

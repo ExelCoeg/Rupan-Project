@@ -22,7 +22,14 @@ public class SoundManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
     }
-
+    private void Update() {
+        if(GameManager.instance.isPaused){
+            sfx2DSource.Pause();
+        }
+        else{
+            sfx2DSource.UnPause();
+        }
+    }
     public void PlaySound3D(AudioClip clip, Vector3 pos)
     {
         if (clip != null)

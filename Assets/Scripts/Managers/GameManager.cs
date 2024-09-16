@@ -6,6 +6,10 @@ using UnityEngine.Video;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public bool isPaused;
+    public override void Awake()
+    {
+        base.Awake();
+    }
     // Start is called before the first frame update
     public void PlayGame(){
         SceneManager.LoadScene("Game");
@@ -19,6 +23,7 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
     }
 
     public void PauseGame(){
+        
         Time.timeScale = 0;
         foreach(VideoPlayer videoPlayer in FindObjectsOfType<VideoPlayer>()){
             if(videoPlayer.isPlaying){
@@ -27,9 +32,9 @@ public class GameManager : SingletonMonoBehaviour<GameManager>
         }
         isPaused = true;
     }
-
     public void ResumeGame(){
         Time.timeScale = 1;
+        
         isPaused = false;
         foreach(VideoPlayer videoPlayer in FindObjectsOfType<VideoPlayer>()){
             if(videoPlayer.isPaused){
