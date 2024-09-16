@@ -149,7 +149,7 @@ public class Player : MonoBehaviour, IDamagable
             currentPickupableObject.ReturnToOriginalPosition();
             currentPickupableObject = null;
         }
-        UIManager.instance.uiUse.UpdateText("");
+        UIManager.instance.uiUse.Hide();
     }
 
     public void PlayTimeline(string timelineName){
@@ -217,11 +217,11 @@ public class Player : MonoBehaviour, IDamagable
         if(other.gameObject.CompareTag("WoodFloor")){
             onWhatGround = GroundType.WOOD;
         }
-        else if(other.gameObject.CompareTag("GravelFloor")){
-            onWhatGround = GroundType.GRAVEL;
-        }
         else if(other.gameObject.CompareTag("GrassFloor")){
             onWhatGround = GroundType.GRASS;
+        }
+        else if(other.gameObject.CompareTag("GravelFloor")){
+            onWhatGround = GroundType.GRAVEL;
         }
     }
 }

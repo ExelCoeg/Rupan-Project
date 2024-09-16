@@ -389,15 +389,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""NextDialogue"",
-                    ""type"": ""Button"",
-                    ""id"": ""1d311e87-3cd3-4c4b-9a60-9bade0e484f8"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -818,67 +809,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""TrackedDeviceOrientation"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""df1f194f-d005-41a9-9540-ee6b8afeaaad"",
-                    ""path"": ""<Keyboard>/anyKey"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NextDialogue"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6235e64d-3f6b-48d3-96a2-47538622681b"",
-                    ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NextDialogue"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""aae32ee0-5ff8-457b-b902-1e37df84dfc2"",
-                    ""path"": ""<Mouse>/rightButton"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""NextDialogue"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Cheats"",
-            ""id"": ""8ce93d1e-6b72-4e25-88ac-89c575931316"",
-            ""actions"": [
-                {
-                    ""name"": ""NextObjective"",
-                    ""type"": ""Button"",
-                    ""id"": ""14da1530-6c64-4697-8d4d-4ac84e0c279b"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""4a61f4b4-7f95-462d-b6de-4795367a54fc"",
-                    ""path"": ""<Keyboard>/rightBracket"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""NextObjective"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -965,10 +895,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_RightClick = m_UI.FindAction("RightClick", throwIfNotFound: true);
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
-        m_UI_NextDialogue = m_UI.FindAction("NextDialogue", throwIfNotFound: true);
-        // Cheats
-        m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
-        m_Cheats_NextObjective = m_Cheats.FindAction("NextObjective", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1118,7 +1044,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_RightClick;
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
-    private readonly InputAction m_UI_NextDialogue;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1133,7 +1058,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @RightClick => m_Wrapper.m_UI_RightClick;
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
-        public InputAction @NextDialogue => m_Wrapper.m_UI_NextDialogue;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1173,9 +1097,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed += instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled += instance.OnTrackedDeviceOrientation;
-            @NextDialogue.started += instance.OnNextDialogue;
-            @NextDialogue.performed += instance.OnNextDialogue;
-            @NextDialogue.canceled += instance.OnNextDialogue;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1210,9 +1131,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @TrackedDeviceOrientation.started -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.performed -= instance.OnTrackedDeviceOrientation;
             @TrackedDeviceOrientation.canceled -= instance.OnTrackedDeviceOrientation;
-            @NextDialogue.started -= instance.OnNextDialogue;
-            @NextDialogue.performed -= instance.OnNextDialogue;
-            @NextDialogue.canceled -= instance.OnNextDialogue;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1230,52 +1148,6 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         }
     }
     public UIActions @UI => new UIActions(this);
-
-    // Cheats
-    private readonly InputActionMap m_Cheats;
-    private List<ICheatsActions> m_CheatsActionsCallbackInterfaces = new List<ICheatsActions>();
-    private readonly InputAction m_Cheats_NextObjective;
-    public struct CheatsActions
-    {
-        private @PlayerInputActions m_Wrapper;
-        public CheatsActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @NextObjective => m_Wrapper.m_Cheats_NextObjective;
-        public InputActionMap Get() { return m_Wrapper.m_Cheats; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(CheatsActions set) { return set.Get(); }
-        public void AddCallbacks(ICheatsActions instance)
-        {
-            if (instance == null || m_Wrapper.m_CheatsActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_CheatsActionsCallbackInterfaces.Add(instance);
-            @NextObjective.started += instance.OnNextObjective;
-            @NextObjective.performed += instance.OnNextObjective;
-            @NextObjective.canceled += instance.OnNextObjective;
-        }
-
-        private void UnregisterCallbacks(ICheatsActions instance)
-        {
-            @NextObjective.started -= instance.OnNextObjective;
-            @NextObjective.performed -= instance.OnNextObjective;
-            @NextObjective.canceled -= instance.OnNextObjective;
-        }
-
-        public void RemoveCallbacks(ICheatsActions instance)
-        {
-            if (m_Wrapper.m_CheatsActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(ICheatsActions instance)
-        {
-            foreach (var item in m_Wrapper.m_CheatsActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_CheatsActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public CheatsActions @Cheats => new CheatsActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -1341,10 +1213,5 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnRightClick(InputAction.CallbackContext context);
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
-        void OnNextDialogue(InputAction.CallbackContext context);
-    }
-    public interface ICheatsActions
-    {
-        void OnNextObjective(InputAction.CallbackContext context);
     }
 }

@@ -3,7 +3,7 @@ public abstract class InteractableObject : MonoBehaviour
 {
     public string objectName;
     public bool isDebug = false;
-    public bool isInteractable = true;
+    public bool isInteractable;
     // public bool canEnableOutline = true;
     Material outline;  
     public abstract void Interacted(); 

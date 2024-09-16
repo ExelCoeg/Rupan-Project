@@ -4,6 +4,7 @@ public class Objective : MonoBehaviour {
     public bool isDebug;
     public string mainText;
     public bool isComplete;
+    public event Action OnObjectiveComplete;
 
     public virtual void Update(){
         UIManager.instance.UpdateObjectiveTexts(mainText);
