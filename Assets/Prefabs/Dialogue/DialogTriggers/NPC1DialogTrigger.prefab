@@ -70,15 +70,15 @@ MonoBehaviour:
     dialogueLines:
     - character:
         name: Exel
-        icon: {fileID: 0}
+        icon: {fileID: 21300000, guid: 82fa61e73d53e1645a5dbd5b19685f14, type: 3}
       line: Help me, young man! It's the red moon tonight! All my neighbors are possessed!
     - character:
         name: Exel
-        icon: {fileID: 0}
+        icon: {fileID: 21300000, guid: 82fa61e73d53e1645a5dbd5b19685f14, type: 3}
       line: You just need to find five agate rings in the houses
     - character:
         name: Exel
-        icon: {fileID: 0}
+        icon: {fileID: 21300000, guid: 82fa61e73d53e1645a5dbd5b19685f14, type: 3}
       line: Just slap them with the rings and hopefully they'll come to their senses
     playableDirectorTrigger: {fileID: 0}
   isPlayInStart: 0

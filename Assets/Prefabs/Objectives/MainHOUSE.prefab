@@ -1363,11 +1363,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 368346172177817473, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 574772707387953685, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 576386145808697824, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_Name
@@ -1375,11 +1375,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3768583993357267327, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 4428721291994665634, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 4704052688656830551, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: speed
@@ -1391,15 +1391,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4807365063898016741, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
+      objectReference: {fileID: 0}
+    - target: {fileID: 6031470279934416387, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
+      propertyPath: m_TagString
+      value: MainHouseDoor
       objectReference: {fileID: 0}
     - target: {fileID: 6135544278207397417, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 6336205156903016998, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 6565401799833117564, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1443,11 +1447,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6723407020727592865, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 7570221486399641701, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     - target: {fileID: 8099729008375879016, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_Enabled
@@ -1455,7 +1459,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8737227492606840305, guid: b3be04615f3a70a4ca1e639b1bd853f0, type: 3}
       propertyPath: m_VersionIndex
-      value: 142
+      value: 151
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1851,6 +1855,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Planks_A1_Half_4x6_1a
       objectReference: {fileID: 0}
+    - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3529412714759078020, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
+      objectReference: {fileID: 0}
     - target: {fileID: 5418867337702527847, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
       propertyPath: m_LocalScale.z
       value: 0.6706525
@@ -1923,7 +1935,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2155636723705089866, guid: 37e9d27e5d808514cad82ff54929487b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.72
+      value: -0.85
       objectReference: {fileID: 0}
     - target: {fileID: 2155636723705089866, guid: 37e9d27e5d808514cad82ff54929487b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2167,6 +2179,14 @@ PrefabInstance:
     - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
       propertyPath: m_Name
       value: Planks_A1_Half_4x6_1a (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3529412714759078020, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
       objectReference: {fileID: 0}
     - target: {fileID: 5418867337702527847, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
       propertyPath: m_LocalScale.z
@@ -2471,6 +2491,14 @@ PrefabInstance:
     - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
       propertyPath: m_Name
       value: Planks_A1_Half_4x6_1a (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3529412714759078020, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3368,6 +3396,14 @@ PrefabInstance:
       value: TV
       objectReference: {fileID: 0}
     - target: {fileID: 8330080273386193747, guid: bc303e1f09d6da34f9e621565ccc0be7, type: 3}
+      propertyPath: m_Looping
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8330080273386193747, guid: bc303e1f09d6da34f9e621565ccc0be7, type: 3}
+      propertyPath: m_VideoClip
+      value: 
+      objectReference: {fileID: 32900000, guid: 28dcf2997db506540b2a41ce3747b342, type: 3}
+    - target: {fileID: 8330080273386193747, guid: bc303e1f09d6da34f9e621565ccc0be7, type: 3}
       propertyPath: m_SkipOnDrop
       value: 0
       objectReference: {fileID: 0}
@@ -4047,6 +4083,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 108486627184541470, guid: f463fe3d450f5864e962e242a3851eb7, type: 3}
+      propertyPath: m_Range
+      value: 1.51
+      objectReference: {fileID: 0}
+    - target: {fileID: 108486627184541470, guid: f463fe3d450f5864e962e242a3851eb7, type: 3}
       propertyPath: m_Color.b
       value: 0.13082935
       objectReference: {fileID: 0}
@@ -4060,7 +4100,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 108486627184541470, guid: f463fe3d450f5864e962e242a3851eb7, type: 3}
       propertyPath: m_Intensity
-      value: 0.55
+      value: 0.38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5288,7 +5328,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868154955828163789, guid: fbbb9fdbc49367246bafc20aae0d3f5f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.1375713
+      value: 1.236
       objectReference: {fileID: 0}
     - target: {fileID: 1868154955828163789, guid: fbbb9fdbc49367246bafc20aae0d3f5f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -5296,7 +5336,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1868154955828163789, guid: fbbb9fdbc49367246bafc20aae0d3f5f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.844307
+      value: 0.844
       objectReference: {fileID: 0}
     - target: {fileID: 1868154955828163789, guid: fbbb9fdbc49367246bafc20aae0d3f5f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5387,6 +5427,14 @@ PrefabInstance:
     - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
       propertyPath: m_Name
       value: Planks_A1_Half_4x6_1a (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1753128311938434031, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
+      objectReference: {fileID: 0}
+    - target: {fileID: 3529412714759078020, guid: 6ec71c0258e7a4c448769346350f2026, type: 3}
+      propertyPath: m_TagString
+      value: WoodFloor
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

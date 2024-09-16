@@ -12,7 +12,7 @@ public class SearchRings : Objective
         mainText = "Collected rings " + ringsFound + "/" + ringsToFind;
         
         if(ringsFound >= ringsToFind){
-            CompleteObjective();
+            ObjectiveManager.instance.NextObjective();
         }
     }
 }
