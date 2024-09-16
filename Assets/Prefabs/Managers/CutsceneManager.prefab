@@ -276,6 +276,9 @@ MonoBehaviour:
     m_Signals:
     - {fileID: 11400000, guid: f1e5440f30c55444ab0b288710c9c4dd, type: 2}
     - {fileID: 11400000, guid: 5bd815852bdc8ee4985a1a5de5510164, type: 2}
+    - {fileID: 11400000, guid: 5550e9083bfa3d14d9f7c7be88a91404, type: 2}
+    - {fileID: 11400000, guid: dc71faf8c3a41e94e8393b293a28cc37, type: 2}
+    - {fileID: 11400000, guid: f03429585bb28f84d85e7230a3c598bd, type: 2}
     m_Events:
     - m_PersistentCalls:
         m_Calls:
@@ -378,18 +381,6 @@ MonoBehaviour:
             m_BoolArgument: 0
           m_CallState: 2
         - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: TV, Assembly-CSharp
-          m_MethodName: StopVideo
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
           m_MethodName: EnableMove
           m_Mode: 1
@@ -428,6 +419,48 @@ MonoBehaviour:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
           m_MethodName: EnableNextDialogueAction
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+          m_MethodName: DisplayNextDialogueLine
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: TV, Assembly-CSharp
+          m_MethodName: PlayVideo
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: TV, Assembly-CSharp
+          m_MethodName: StopVideo
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}

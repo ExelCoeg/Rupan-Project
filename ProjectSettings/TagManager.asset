@@ -6,6 +6,7 @@ TagManager:
   tags:
   - WoodFloor
   - GravelFloor
+  - GrassFloor
   layers:
   - Default
   - TransparentFX

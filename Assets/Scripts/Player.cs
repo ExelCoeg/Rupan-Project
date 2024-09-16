@@ -140,7 +140,7 @@ public class Player : MonoBehaviour, IDamagable
         currentPickupableObject = pickupableObject;
         currentPickupableObject.gameObject.transform.SetParent(rightHand);
         currentPickupableObject.gameObject.transform.localPosition = Vector3.zero;
-        currentPickupableObject.gameObject.transform.localRotation = Quaternion.identity;
+        currentPickupableObject.gameObject.transform.localRotation = rightHand.rotation;
         UIManager.instance.uiUse.UpdateText(currentPickupableObject.objectName);
     }
 
