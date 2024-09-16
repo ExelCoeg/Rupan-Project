@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -20,6 +21,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] State state;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Player player;
+    [SerializeField] bool isHealed;
 
     [Header("Movement System")]
     [SerializeField] float movSpeed;
@@ -77,6 +79,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] private string attackAnim;
     [SerializeField] private string fallAnim;
     [SerializeField] private string standUpAnim;
+    [SerializeField] private string healedAnim;
 
 
     // Scanning rotation state
@@ -171,20 +174,24 @@ public class NPC : MonoBehaviour,IDamagable
         {
             case State.IDLE:
                 animator.Play(idleAnim);
+                isAlreadyAttack = false;
                 break;
             case State.PATROLING:
                 movCurrentSpeed = movSpeed;
                 animator.Play(walkAnim);
+                isAlreadyAttack = false;
                 break;
             case State.CHASE:
                 movCurrentSpeed = movSpeedRun;
                 animator.Play(runAnim);
+                isAlreadyAttack = false;
                 break;
             case State.ATTACK:
                 animator.Play(idleAnim);
                 break;
             case State.FAINT:
                 animator.Play(fallAnim);
+                isAlreadyAttack = false;
                 FAINT();
                 break;
         }
@@ -255,11 +262,38 @@ public class NPC : MonoBehaviour,IDamagable
 
     public IEnumerator Revive(float delayTime)
     {
+        if (animator == null)
+        {
+            Debug.LogError("Animator is null in Revive()");
+        }
+
+        if (NPCManager.instance == null)
+        {
+            Debug.LogError("NPCManager.instance is null in Revive()");
+        }
+
         yield return new WaitForSeconds(delayTime);
         animator.Play(standUpAnim);
         currentHealth = maxHealth;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        ChangeState(State.PATROLING);
+        if (playerTransform != null)
+        {
+            Vector3 direction = playerTransform.position - transform.position;
+            direction.y = 0;
+            if (direction != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(direction);
+                transform.rotation = targetRotation;
+            }
+        }
+        NPCManager.instance.HealNPC();
+        isHealed = true;
+        animator.Play(healedAnim);
+    }
+    public void RunOutOfWord(){
+        Debug.Log("TO out word");
+        agent.speed = 3;
+        SetDestination(NPCManager.instance.GetRandomOutPoint());
     }
 
     public void SetDestination(Vector3 targetWalkPoint)
@@ -282,7 +316,7 @@ public class NPC : MonoBehaviour,IDamagable
     {
         Debug.Log("Zombie take damage");
         currentHealth -= damage;
-        if (currentHealth <= 0)
+        if (currentHealth == 0)
         {
             ChangeState(State.FAINT);
         }

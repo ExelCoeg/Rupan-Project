@@ -46,6 +46,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isDebug: 0
   mainText: Help the people that are on trance!
-  description: Perfom actions
   isComplete: 0
-  peopleToHeal: 11
+  peopleToHeal: 4
