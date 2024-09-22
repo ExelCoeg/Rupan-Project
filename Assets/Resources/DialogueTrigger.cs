@@ -29,15 +29,34 @@ public class DialogueTrigger : MonoBehaviour
     public Dialogue dialogue;
     public bool isPlayInStart = false;
     public bool isPlayed = false;
+    public bool enableNextDialogueLine;
+    public bool enableUIAfterDialogueLine;
     private void Start() {
         if (isPlayInStart)
         {
             TriggerDialogue();
         }
+        
     }
  
     public virtual void TriggerDialogue()
     {
+        if(enableUIAfterDialogueLine)
+        {
+            DialogueManager.instance.EnableUIAfterDialogue();
+        }
+        else{
+            DialogueManager.instance.DisableUIAfterDialogue();
+        }
+
+        if(enableNextDialogueLine)
+        {
+            DialogueManager.instance.EnableNextDialogueAction();
+        }
+        else{
+            DialogueManager.instance.DisableNextDialogueAction();
+        }
+        isPlayed = true;
         DialogueManager.instance.StartDialogue(dialogue);
     }
     private void OnTriggerEnter(Collider other) {

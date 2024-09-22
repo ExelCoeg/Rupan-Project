@@ -332,6 +332,57 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!1 &473097579727633439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2157948811811764076}
+  - component: {fileID: 6028542603676107296}
+  m_Layer: 0
+  m_Name: PlayerWakeUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2157948811811764076
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473097579727633439}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3366097017114919376}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!320 &6028542603676107296
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473097579727633439}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 59f369274b01ba94cb75478e3a54781f, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings:
+  - key: {fileID: 3719152898310186690, guid: 59f369274b01ba94cb75478e3a54781f, type: 2}
+    value: {fileID: 1988297859200981635}
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &534622488510475865
 GameObject:
   m_ObjectHideFlags: 0
@@ -588,6 +639,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+        - m_Target: {fileID: 1836577215685616794}
+          m_TargetAssemblyTypeName: Player, Assembly-CSharp
+          m_MethodName: MakeCurrentInteractableObjectNull
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
     - m_PersistentCalls:
         m_Calls:
         - m_Target: {fileID: 0}
@@ -605,18 +668,6 @@ MonoBehaviour:
         - m_Target: {fileID: 0}
           m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
           m_MethodName: ShowUIForCutscene
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: InteractableObject, Assembly-CSharp
-          m_MethodName: DisableInteractable
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1360,7 +1411,6 @@ MonoBehaviour:
   onWhatGround: 0
   hitCount: 3
   speed: 2
-  spawnPoint: {fileID: 0}
   move:
     m_Name: Move
     m_Type: 0
@@ -1398,15 +1448,16 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   currentInteractableObject: {fileID: 0}
+  enableDetectInteractableObject: 1
   attackPoint: {fileID: 2013044632890159019}
   attackRadius: 0.5
   attackDamage: 0
   hitCountResetTime: 0
-  enableDetectInteractableObject: 1
   rightHand: {fileID: 6676680863126062440}
   currentPickupableObject: {fileID: 0}
   playerTimelines:
   - {fileID: 5076852124363445874}
+  spawnPoint: {fileID: 0}
 --- !u!95 &1988297859200981635
 Animator:
   serializedVersion: 5
@@ -1557,6 +1608,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6426279781599513629}
+  - {fileID: 2157948811811764076}
   m_Father: {fileID: 2739266678919321382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3370680222209328538

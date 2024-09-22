@@ -15,7 +15,9 @@ public class UIDialog : UIBase
     }
     public override void Hide()
     {
-        UIManager.instance.ShowUIForCutscene();
+        if(DialogueManager.instance.enableUIAfterDialogue){
+            UIManager.instance.ShowUIForCutscene();
+        }
         player.GetComponent<Player>().EnableControls();
         Camera.main.GetComponent<FPSCamera>().EnableCamera();
         GetComponentInChildren<RectTransform>().DOAnchorPosY(-300, 0.5f).SetEase(Ease.InBack).OnComplete(()=>base.Hide());  

@@ -4,7 +4,6 @@ public abstract class InteractableObject : MonoBehaviour
     public string objectName;
     public bool isDebug = false;
     public bool isInteractable;
-    // public bool canEnableOutline = true;
     Material outline;  
     public abstract void Interacted(); 
     public virtual void Awake() {
@@ -17,16 +16,19 @@ public abstract class InteractableObject : MonoBehaviour
             }
         }
     }
-    // private void Start() {
-    //     DisableOutline();        
-    // }
+
+    private void Update() {
+        if(!isInteractable && outline.GetFloat("_Scale") > 0){
+            outline.SetFloat("_Scale", 0f);
+        }
+    }
    public void DisableOutline(){
-        if(outline != null){
+        if(outline != null && isInteractable){
             outline.SetFloat("_Scale", 0f);
         }
     }
     public void EnableOutline(){
-        if(outline != null){
+        if(outline != null && isInteractable){
             outline.SetFloat("_Scale", 1.025f);
         }
    }

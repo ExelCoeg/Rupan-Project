@@ -4,23 +4,25 @@ using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 public class Player : MonoBehaviour, IDamagable
 {
-    Rigidbody rb;
+    // Rigidbody rb;
     Animator anim;
     Vector3 moveDirection;
     RaycastHit hit;
     [Header("On What Ground")]
     public GroundType onWhatGround;
+    [Header("Player Stats")]
     public int hitCount;
     public float speed;
-    public Transform spawnPoint;
-    public PlayerInputActions playerControls;   
     [Header("Player Input Actions")]
+    public PlayerInputActions playerControls;   
     public InputAction move;
     public InputAction attack;
     public InputAction interact;
     public InputAction use;
     [Header("Interactable Object")]
     public InteractableObject currentInteractableObject;
+    [Header("Detect Interactable Object")]
+    public bool enableDetectInteractableObject = true;
     [Header("Attack")]
     public Transform attackPoint;
     public float attackRadius;
@@ -28,22 +30,21 @@ public class Player : MonoBehaviour, IDamagable
     [Header("Hit Count Reset")]
     float hitCountTimer;
     public float hitCountResetTime;
-    [Header("Detect Interactable Object")]
-    public bool enableDetectInteractableObject = true;
 
-    [Header("Right Hand")]
+    [Header("Pickupable Object")]
     public Transform rightHand;
     public PickupableObject currentPickupableObject; 
     [Header("Player Timelines")]
 
     public List<PlayableDirector> playerTimelines;
+    public Transform spawnPoint;
     
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
 
 
     private void Awake() {
-        rb = GetComponent<Rigidbody>();
+        // rb = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
         playerControls = new PlayerInputActions();
     }
@@ -73,7 +74,8 @@ public class Player : MonoBehaviour, IDamagable
     }
     private void FixedUpdate() {
         moveDirection = moveDirection.x * -transform.right + moveDirection.z * -transform.forward;
-        rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
+        transform.position += moveDirection * speed * Time.fixedDeltaTime;
+        // rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
     }
 
     private void MeleeAttack(InputAction.CallbackContext context){
@@ -188,6 +190,7 @@ public class Player : MonoBehaviour, IDamagable
         use = playerControls.Player.Use;
         attack.performed += MeleeAttack;
         interact.performed += Interact;
+        interact.performed += ctx => SoundManager.instance.PlaySound2D("PlayerInteract");
         use.performed += Use;
     }
     private void OnDisable() {
@@ -211,6 +214,12 @@ public class Player : MonoBehaviour, IDamagable
     }
     public void DisableAttack(){
         attack.Disable();
+    }
+    public void MakeCurrentInteractableObjectNull(){
+        currentInteractableObject = null;
+    }
+    public void MakeCurrentPickupableObjectNull(){
+        currentPickupableObject = null;
     }
 
     private void OnCollisionEnter(Collision other) {

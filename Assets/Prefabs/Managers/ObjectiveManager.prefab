@@ -45,12 +45,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectives:
-  - {fileID: 6456666977826890360, guid: 5897e5fcc39a10847bca854629224c68, type: 3}
-  - {fileID: 7124035129902004670, guid: 8c68081d6258740429d6038b351f9fd9, type: 3}
-  - {fileID: 7762292132103258670, guid: 936028f273a27a648977cb2bba01fbf6, type: 3}
+  - {fileID: 8826938119956919833, guid: 5897e5fcc39a10847bca854629224c68, type: 3}
   - {fileID: 7203916634275611749, guid: 39cc0f45f32d064488d7256967ed8c35, type: 3}
   - {fileID: 6481216429094763416, guid: dbbb6fabf2ff0fd478feaf4d7d7a3636, type: 3}
-  - {fileID: 4597630892120176709, guid: bbca3f0d94a66ab4fa30d7d4a1e5a55c, type: 3}
   - {fileID: 1877240665666821270, guid: 0a191b816ba366641810c97d3ab422ba, type: 3}
+  - {fileID: 4597630892120176709, guid: bbca3f0d94a66ab4fa30d7d4a1e5a55c, type: 3}
   currentObjective: {fileID: 0}
   currentObjectiveIndex: 0
+  nextObjectiveAction:
+    m_Name: Next Objective
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 68d4dfc2-d7f0-4de5-82bf-7cc76c4359f1
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0

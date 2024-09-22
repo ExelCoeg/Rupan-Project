@@ -8,11 +8,7 @@ public class UIBook : UIBase
     {
         base.Show();
     }
-    private void Update() {
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            Hide();
-        }
-    }
+
     public override void Hide()
     {
         base.Hide();

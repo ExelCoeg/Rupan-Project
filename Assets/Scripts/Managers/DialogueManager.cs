@@ -4,25 +4,25 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 using UnityEngine.InputSystem;
+using System;
 
 public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
 {
     public Image characterIcon;
     public TextMeshProUGUI characterName;
     public TextMeshProUGUI dialogueArea;
- 
     private Queue<DialogueLine> lines;
     public UIDialog  uiDialog;
-    public bool isDialogueActive = false;
- 
     public float typingSpeed = 0.2f;
- 
-    public Animator animator;
     public Dialogue currentDialogue;
-
-
     public PlayerInputActions playerInputActions;
     public InputAction nextDialogueAction;
+    [Header("BOOLS")]
+    public bool isDialogueActive = false;
+    public bool enableNextDialogueAction = true;
+    public bool enableUIAfterDialogue = true;
+    public static event Action onDialogueEnd;
+    public Animator animator;
     public override void Awake()
     {
         base.Awake();
@@ -33,7 +33,7 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
         nextDialogueAction = playerInputActions.UI.NextDialogue;
         nextDialogueAction.performed += ctx => {
             if(isDialogueActive)
-            DisplayNextDialogueLine();
+                DisplayNextDialogueLine();
         };
     }
     public void StartDialogue(Dialogue dialogue)
@@ -92,21 +92,26 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
 
         FindObjectOfType<Player>().EnableControls();
     }
-
-
+    public void OnDialogueEnd(){
+        onDialogueEnd?.Invoke();
+    }
     public void DisableCharacterIcon(){
         characterIcon.enabled = false;
     }
-
     public void EnableCharacterIcon(){
         characterIcon.enabled = true;
     }
-
     public void EnableNextDialogueAction(){
         nextDialogueAction.Enable();
     }
     public void DisableNextDialogueAction(){
         nextDialogueAction.Disable();
+    }
+    public void EnableUIAfterDialogue(){
+        enableUIAfterDialogue = true;
+    }
+    public void DisableUIAfterDialogue(){
+        enableUIAfterDialogue = false;
     }
    
 }

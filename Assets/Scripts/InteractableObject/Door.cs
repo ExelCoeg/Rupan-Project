@@ -42,6 +42,7 @@ public class Door : InteractableObject
                 Debug.Log($"Dot: {dot.ToString("N3")}");
                 animationCoroutine = StartCoroutine(DoRotationOpen(dot));
             }
+            SoundManager.instance.PlaySound3D("DoorOpen",transform.position);
         }
     }
     private IEnumerator DoRotationOpen(float forwardAmount){
@@ -69,6 +70,7 @@ public class Door : InteractableObject
             if(isRotatingDoor){
                 animationCoroutine = StartCoroutine(DoRotationClose());
             }
+            SoundManager.instance.PlaySound3D("DoorClose",transform.position);
         }
     }
     private IEnumerator DoRotationClose(){

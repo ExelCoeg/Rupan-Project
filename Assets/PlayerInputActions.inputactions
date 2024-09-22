@@ -831,6 +831,34 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "Cheats",
+            "id": "95531551-70de-4194-b245-cc650e044679",
+            "actions": [
+                {
+                    "name": "NextObjective",
+                    "type": "Button",
+                    "id": "10aa9e24-62cb-43cd-bc2a-96b6b953cd02",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "6326248c-17ec-4a65-95ac-667227008d4f",
+                    "path": "<Keyboard>/rightBracket",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "NextObjective",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

@@ -35,7 +35,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
         uiUse.Hide();
         uiBook.Hide();
-        // uiObjectiveTexts.Hide();
         uiInteract.Hide();
         uiPause.Hide();
     }
@@ -49,10 +48,14 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         }
 
         if(Input.GetKeyDown(KeyCode.Escape)){
-            if(currentUI == UI.PAUSE){
+            if(currentUI == UI.BOOK){
+                HideUI(UI.BOOK);
+            }
+            else if(currentUI == UI.PAUSE){
                 HideUI(UI.PAUSE);
                 GameManager.instance.ResumeGame();
-            }else{
+            }
+            else{
                 GameManager.instance.PauseGame();
                 ShowUI(UI.PAUSE);
             }
@@ -68,6 +71,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             case UI.PAUSE:
                 uiPause.Show();
                 break;
+            case UI.BOOK:
+                uiBook.Show();
+                break;
         }
         currentUI = ui;
     }
@@ -78,6 +84,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         switch(ui){
             case UI.PAUSE:
                 uiPause.Hide();
+                break;
+            case UI.BOOK:
+                uiBook.Hide();
                 break;
         }
         currentUI = UI.GAMEPLAY;
@@ -106,5 +115,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 
 public enum UI{
     PAUSE,
-    GAMEPLAY
+    GAMEPLAY,
+    BOOK
 }

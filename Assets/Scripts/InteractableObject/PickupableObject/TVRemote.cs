@@ -3,10 +3,11 @@ using UnityEngine;
 public class TVRemote : PickupableObject
 {
     public TV tv;
+    public Couch couch;
     public override void Interacted()
     {
         base.Interacted();
-        FindObjectOfType<Couch>().EnableInteractable();
+        couch.EnableInteractable();
     }
     public override void Use()
     {
