@@ -71,6 +71,24 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SprintStart"",
+                    ""type"": ""Button"",
+                    ""id"": ""69ae44b5-3fdb-47a8-8aca-cf6209b4087b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SprintFinish"",
+                    ""type"": ""Button"",
+                    ""id"": ""e2f197bf-fda5-40ca-8156-b7173bafd4d6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -291,6 +309,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
                     ""action"": ""Use"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""25bfed80-1ad1-4c8b-b98f-625b3d102e4f"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SprintStart"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20b8a220-5039-47e6-ae60-a42c3f343149"",
+                    ""path"": ""<Keyboard>/leftShift"",
+                    ""interactions"": ""Press(behavior=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SprintFinish"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -953,6 +993,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Attack = m_Player.FindAction("Attack", throwIfNotFound: true);
         m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
         m_Player_Use = m_Player.FindAction("Use", throwIfNotFound: true);
+        m_Player_SprintStart = m_Player.FindAction("SprintStart", throwIfNotFound: true);
+        m_Player_SprintFinish = m_Player.FindAction("SprintFinish", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1035,6 +1077,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Attack;
     private readonly InputAction m_Player_Interact;
     private readonly InputAction m_Player_Use;
+    private readonly InputAction m_Player_SprintStart;
+    private readonly InputAction m_Player_SprintFinish;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1044,6 +1088,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @Attack => m_Wrapper.m_Player_Attack;
         public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputAction @Use => m_Wrapper.m_Player_Use;
+        public InputAction @SprintStart => m_Wrapper.m_Player_SprintStart;
+        public InputAction @SprintFinish => m_Wrapper.m_Player_SprintFinish;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1068,6 +1114,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Use.started += instance.OnUse;
             @Use.performed += instance.OnUse;
             @Use.canceled += instance.OnUse;
+            @SprintStart.started += instance.OnSprintStart;
+            @SprintStart.performed += instance.OnSprintStart;
+            @SprintStart.canceled += instance.OnSprintStart;
+            @SprintFinish.started += instance.OnSprintFinish;
+            @SprintFinish.performed += instance.OnSprintFinish;
+            @SprintFinish.canceled += instance.OnSprintFinish;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -1087,6 +1139,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Use.started -= instance.OnUse;
             @Use.performed -= instance.OnUse;
             @Use.canceled -= instance.OnUse;
+            @SprintStart.started -= instance.OnSprintStart;
+            @SprintStart.performed -= instance.OnSprintStart;
+            @SprintStart.canceled -= instance.OnSprintStart;
+            @SprintFinish.started -= instance.OnSprintFinish;
+            @SprintFinish.performed -= instance.OnSprintFinish;
+            @SprintFinish.canceled -= instance.OnSprintFinish;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -1328,6 +1386,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnAttack(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnUse(InputAction.CallbackContext context);
+        void OnSprintStart(InputAction.CallbackContext context);
+        void OnSprintFinish(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

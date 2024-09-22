@@ -342,6 +342,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2157948811811764076}
   - component: {fileID: 6028542603676107296}
+  - component: {fileID: 7067971801323109577}
   m_Layer: 0
   m_Name: PlayerWakeUp
   m_TagString: Untagged
@@ -383,6 +384,51 @@ PlayableDirector:
     value: {fileID: 1988297859200981635}
   m_ExposedReferences:
     m_References: []
+--- !u!114 &7067971801323109577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 473097579727633439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e52de21a22b6dd44c9cc19f810c65059, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Events:
+    m_Signals:
+    - {fileID: 11400000, guid: f1e5440f30c55444ab0b288710c9c4dd, type: 2}
+    - {fileID: 11400000, guid: 5bd815852bdc8ee4985a1a5de5510164, type: 2}
+    m_Events:
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1836577215685616794}
+          m_TargetAssemblyTypeName: Player, Assembly-CSharp
+          m_MethodName: DisableControls
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+    - m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1836577215685616794}
+          m_TargetAssemblyTypeName: Player, Assembly-CSharp
+          m_MethodName: EnableControls
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &534622488510475865
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1457,10 @@ MonoBehaviour:
   onWhatGround: 0
   hitCount: 3
   speed: 2
+  currentSpeed: 0
+  speedMultiplier: 1.5
+  currentStamina: 1
+  maxStamina: 5
   move:
     m_Name: Move
     m_Type: 0
@@ -1447,6 +1497,24 @@ MonoBehaviour:
     m_Interactions: 
     m_SingletonActionBindings: []
     m_Flags: 0
+  sprintStart:
+    m_Name: Sprint Start
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 0cdc878f-d33c-4353-a7d3-8de8fcc9d86d
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
+  sprintFinish:
+    m_Name: Sprint Finish
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 31b42ba8-b6bc-407b-9afb-9d988a935d7e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
   currentInteractableObject: {fileID: 0}
   enableDetectInteractableObject: 1
   attackPoint: {fileID: 2013044632890159019}
@@ -1458,6 +1526,7 @@ MonoBehaviour:
   playerTimelines:
   - {fileID: 5076852124363445874}
   spawnPoint: {fileID: 0}
+  isSprinting: 0
 --- !u!95 &1988297859200981635
 Animator:
   serializedVersion: 5

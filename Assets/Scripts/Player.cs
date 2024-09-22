@@ -13,12 +13,18 @@ public class Player : MonoBehaviour, IDamagable
     [Header("Player Stats")]
     public int hitCount;
     public float speed;
+    public float currentSpeed;
+    public float speedMultiplier = 1.5f;
+    public float currentStamina;
+    public float maxStamina = 10f;
     [Header("Player Input Actions")]
     public PlayerInputActions playerControls;   
     public InputAction move;
     public InputAction attack;
     public InputAction interact;
     public InputAction use;
+    public InputAction sprintStart;
+    public InputAction sprintFinish;
     [Header("Interactable Object")]
     public InteractableObject currentInteractableObject;
     [Header("Detect Interactable Object")]
@@ -38,6 +44,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public List<PlayableDirector> playerTimelines;
     public Transform spawnPoint;
+    [Header("Player Bools")]
+    public bool isSprinting;
     
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
@@ -50,6 +58,8 @@ public class Player : MonoBehaviour, IDamagable
     }
     private void Start() {
         // transform.position = spawnPoint.position;
+        currentSpeed = speed;
+        currentStamina = maxStamina;
     }
 
     private void Update() {
@@ -71,11 +81,24 @@ public class Player : MonoBehaviour, IDamagable
        
         anim.SetBool(isWalkingString,moveDirection != Vector3.zero);
         
+
+        if(currentStamina > maxStamina){
+            currentStamina = maxStamina;
+        }
+        else if(currentStamina < 0){
+            currentStamina = 0;
+        }
+        if(isSprinting){
+            currentStamina -= Time.deltaTime;
+
+        }
+        else{
+            currentStamina += Time.deltaTime;
+        }
     }
     private void FixedUpdate() {
         moveDirection = moveDirection.x * -transform.right + moveDirection.z * -transform.forward;
-        transform.position += moveDirection * speed * Time.fixedDeltaTime;
-        // rb.MovePosition(transform.position + moveDirection * speed * Time.fixedDeltaTime);
+        transform.position += moveDirection * currentSpeed * Time.fixedDeltaTime;
     }
 
     private void MeleeAttack(InputAction.CallbackContext context){
@@ -123,7 +146,6 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
-
     private void OnDrawGizmos() {
         if(attackPoint == null) return;
         Gizmos.DrawWireSphere(attackPoint.position, attackRadius);
@@ -162,6 +184,16 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
+
+    public void SprintPressed(){
+        isSprinting = true;
+        currentSpeed *= speedMultiplier;
+    }
+    public void SprintReleased(){
+        isSprinting = false;
+        currentSpeed = speed;
+
+    }
     public void EnableMove()
     {
         move.Enable();
@@ -180,6 +212,9 @@ public class Player : MonoBehaviour, IDamagable
         attack.Disable();
         interact.Disable();
         use.Disable();
+        sprintFinish.Disable();
+        sprintStart.Disable();
+
     }
 
     
@@ -188,9 +223,15 @@ public class Player : MonoBehaviour, IDamagable
         attack = playerControls.Player.Attack;
         interact = playerControls.Player.Interact;
         use = playerControls.Player.Use;
+        sprintStart = playerControls.Player.SprintStart;
+        sprintFinish = playerControls.Player.SprintFinish;
+
         attack.performed += MeleeAttack;
         interact.performed += Interact;
         interact.performed += ctx => SoundManager.instance.PlaySound2D("PlayerInteract");
+
+        sprintStart.performed += ctx => SprintPressed();
+        sprintFinish.performed += ctx => SprintReleased();
         use.performed += Use;
     }
     private void OnDisable() {
@@ -203,6 +244,16 @@ public class Player : MonoBehaviour, IDamagable
     public void DisableDetect(){
         enableDetectInteractableObject = false;
         interact.Disable();
+    }
+    public void EnableSprint(){
+        sprintStart.Enable();
+        sprintFinish.Enable();
+        UIManager.instance.uiSprintBar.Show();
+    }
+    public void DisableSprint(){
+        sprintStart.Disable();
+        sprintFinish.Disable();
+        UIManager.instance.uiSprintBar.Hide();
     }
     public void DisableMove()
     {

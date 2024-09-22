@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 9b78ccf263a6a094fb8fa4115953a169
+guid: c85a99a57bfafca419e36c7f21af271f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -7,8 +7,18 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
-      name: texture
-    second: {fileID: 2100000, guid: 848160b4d02c1d447a19dc624a5a3ed9, type: 2}
+      name: face.png
+    second: {fileID: 2100000, guid: f56ad835163d1664c99ca84976b87158, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: pasted
+    second: {fileID: 2100000, guid: 1a718b453e9543b40b099522aad15763, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: texture.png
+    second: {fileID: 2100000, guid: 4f2607b8b01d1f84ea531d9d40cd4ae8, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

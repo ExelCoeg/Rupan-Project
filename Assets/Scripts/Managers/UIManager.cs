@@ -14,6 +14,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIBook uiBookPrefab;
     public UIBlackScreen uiBlackScreenPrefab;
     public UIUse uiUsePrefab;
+    public UISprintBar uiSprintBarPrefab;
 
     //------ScriptReferences----
     [Header("UI References")]
@@ -23,6 +24,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIBook uiBook;
     public UIBlackScreen uiBlackScreen;
     public UIUse uiUse;
+    public UISprintBar uiSprintBar;
 
     [Header("Canvas")]
     public Transform canvas;
@@ -32,11 +34,13 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiPause = Instantiate(uiPausePrefab,canvas);
         uiBook = Instantiate(uiBookPrefab,canvas);
         uiUse = Instantiate(uiUsePrefab,canvas);
+        uiSprintBar = Instantiate(uiSprintBarPrefab,canvas);
         uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
         uiUse.Hide();
         uiBook.Hide();
         uiInteract.Hide();
         uiPause.Hide();
+        uiSprintBar.Hide();
     }
     private void Update() {
         Cursor.visible = enableCursor;
