@@ -28,7 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.485884, y: -27.79413, z: -98.484474}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -53,6 +53,7 @@ MonoBehaviour:
   uiBlackScreenPrefab: {fileID: 837332342358287673, guid: 55dc50519f8d6524284bc9d2a13f93c4, type: 3}
   uiUsePrefab: {fileID: 4510635300933146999, guid: 95061d6d96aa8124cacef2896d9d674f, type: 3}
   uiSprintBarPrefab: {fileID: 8796907913898016668, guid: 7a6d56bc42570114b9376cbdc94a36e8, type: 3}
+  uiHitEffectPrefab: {fileID: 8954672083698819414, guid: bacb957c631deb8439c7b49175873be1, type: 3}
   uiPause: {fileID: 0}
   uiInteract: {fileID: 0}
   uiObjectiveTexts: {fileID: 0}
@@ -60,4 +61,5 @@ MonoBehaviour:
   uiBlackScreen: {fileID: 0}
   uiUse: {fileID: 0}
   uiSprintBar: {fileID: 0}
+  uiHitEffect: {fileID: 0}
   canvas: {fileID: 0}

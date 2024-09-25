@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
@@ -28,11 +30,14 @@ public class Player : MonoBehaviour, IDamagable
     [Header("Interactable Object")]
     public InteractableObject currentInteractableObject;
     [Header("Detect Interactable Object")]
-    public bool enableDetectInteractableObject = true;
+    
     [Header("Attack")]
     public Transform attackPoint;
     public float attackRadius;
     public int attackDamage;
+    public float attackDelay = 0.01f;
+    [SerializeField] private float attackDelayTimer;
+    
     [Header("Hit Count Reset")]
     float hitCountTimer;
     public float hitCountResetTime;
@@ -46,7 +51,12 @@ public class Player : MonoBehaviour, IDamagable
     public Transform spawnPoint;
     [Header("Player Bools")]
     public bool isSprinting;
-    
+    [SerializeField] private bool enableMove = true;
+    [SerializeField] private bool enableAttack = true;
+    [SerializeField] private bool enableInteract = true;
+    [SerializeField] private bool enableUse = true;
+    [SerializeField] private bool enableSprint = true;
+    public bool enableDetectInteractableObject = true;
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
 
@@ -72,6 +82,8 @@ public class Player : MonoBehaviour, IDamagable
         if(hitCountTimer <= 0){
             ResetHitCountTimer();
         }
+
+        attackDelayTimer -= Time.deltaTime;
 
 
         if(enableDetectInteractableObject){
@@ -102,12 +114,14 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     private void MeleeAttack(InputAction.CallbackContext context){
+        if(attackDelayTimer > 0) return;
+        anim.SetTrigger(attackString);
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRadius, LayerMask.GetMask("Enemy"));
         foreach (IDamagable enemy in hitEnemies)
         {
             enemy.TakeDamage(attackDamage);
         }
-        anim.SetTrigger(attackString);
+        attackDelayTimer = attackDelay;
     }
 
     private void Interact(InputAction.CallbackContext context){
@@ -153,6 +167,8 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
+        Camera.main.DOShakeRotation(0.2f, 20, 10, 90, true);
+        UIManager.instance.uiHitEffect.Activate();
         hitCount -= damage;
     }
     public void ResetHitCountTimer(){
@@ -196,6 +212,7 @@ public class Player : MonoBehaviour, IDamagable
     }
     public void EnableMove()
     {
+        enableMove = true;
         move.Enable();
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
     }
@@ -237,33 +254,43 @@ public class Player : MonoBehaviour, IDamagable
     private void OnDisable() {
         DisableControls();
     }
+
     public void EnableDetect(){
         enableDetectInteractableObject = true;
         interact.Enable();
+
     }
     public void DisableDetect(){
         enableDetectInteractableObject = false;
         interact.Disable();
     }
     public void EnableSprint(){
+        enableSprint = true;
         sprintStart.Enable();
         sprintFinish.Enable();
         UIManager.instance.uiSprintBar.Show();
     }
     public void DisableSprint(){
+        enableSprint = false;
         sprintStart.Disable();
         sprintFinish.Disable();
         UIManager.instance.uiSprintBar.Hide();
     }
     public void DisableMove()
     {
+        enableMove = false;
         move.Disable();
         GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
     }
+    [ContextMenu("EnableAttack")]
     public void EnableAttack(){
+        enableAttack =true;
         attack.Enable();
     }
+    [ContextMenu("DisableAttack")]
+
     public void DisableAttack(){
+        enableAttack =false;
         attack.Disable();
     }
     public void MakeCurrentInteractableObjectNull(){

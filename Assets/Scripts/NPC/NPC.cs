@@ -173,24 +173,24 @@ public class NPC : MonoBehaviour,IDamagable
         switch (state)
         {
             case State.IDLE:
-                animator.Play(idleAnim);
+                animator.CrossFade(idleAnim, 0.1f);
                 isAlreadyAttack = false;
                 break;
             case State.PATROLING:
                 movCurrentSpeed = movSpeed;
-                animator.Play(walkAnim);
+                animator.CrossFade(walkAnim, 0.1f);
                 isAlreadyAttack = false;
                 break;
             case State.CHASE:
                 movCurrentSpeed = movSpeedRun;
-                animator.Play(runAnim);
+                animator.CrossFade(runAnim, 0.1f);
                 isAlreadyAttack = false;
                 break;
             case State.ATTACK:
-                animator.Play(idleAnim);
+                animator.CrossFade(idleAnim, 0.1f);
                 break;
             case State.FAINT:
-                animator.Play(fallAnim);
+                animator.CrossFade(fallAnim, 0.1f);
                 isAlreadyAttack = false;
                 FAINT();
                 break;
@@ -249,7 +249,7 @@ public class NPC : MonoBehaviour,IDamagable
         if (!isAlreadyAttack && (Time.time - lastAttackTime) > attackSpeed)
         {
             Debug.Log("attackStart");
-            animator.Play(attackAnim,0,0);
+            animator.CrossFade(attackAnim,0.1f,0,0);
             isAlreadyAttack = true;
         }
     }
@@ -273,7 +273,7 @@ public class NPC : MonoBehaviour,IDamagable
         }
 
         yield return new WaitForSeconds(delayTime);
-        animator.Play(standUpAnim);
+        animator.CrossFade(standUpAnim,0.1f);
         currentHealth = maxHealth;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         if (playerTransform != null)
@@ -288,7 +288,7 @@ public class NPC : MonoBehaviour,IDamagable
         }
         NPCManager.instance.HealNPC();
         isHealed = true;
-        animator.Play(healedAnim);
+        animator.CrossFade(healedAnim,0.1f);
     }
     public void RunOutOfWord(){
         Debug.Log("TO out word");

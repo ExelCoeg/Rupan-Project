@@ -15,6 +15,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIBlackScreen uiBlackScreenPrefab;
     public UIUse uiUsePrefab;
     public UISprintBar uiSprintBarPrefab;
+    public UIHitEffect uiHitEffectPrefab;
 
     //------ScriptReferences----
     [Header("UI References")]
@@ -25,17 +26,20 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIBlackScreen uiBlackScreen;
     public UIUse uiUse;
     public UISprintBar uiSprintBar;
+    public UIHitEffect uiHitEffect;
 
     [Header("Canvas")]
     public Transform canvas;
     private void Start() {
         uiObjectiveTexts = Instantiate(uiObjectiveTextsPrefab,canvas);
         uiInteract = Instantiate(uiInteractPrefab,canvas);
-        uiPause = Instantiate(uiPausePrefab,canvas);
         uiBook = Instantiate(uiBookPrefab,canvas);
         uiUse = Instantiate(uiUsePrefab,canvas);
         uiSprintBar = Instantiate(uiSprintBarPrefab,canvas);
+        uiHitEffect = Instantiate(uiHitEffectPrefab,canvas);
+        uiPause = Instantiate(uiPausePrefab,canvas);
         uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
+        uiHitEffect.Hide();
         uiUse.Hide();
         uiBook.Hide();
         uiInteract.Hide();
