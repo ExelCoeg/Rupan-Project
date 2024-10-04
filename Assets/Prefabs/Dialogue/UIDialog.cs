@@ -10,7 +10,7 @@ public class UIDialog : UIBase
     public override void Show(){
         base.Show();
         UIManager.instance.HideUIForCutscene();
-        Camera.main.GetComponent<FPSCamera>().DisableCamera();
+        GameManager.instance.player.DisableCamera();
         GetComponentInChildren<RectTransform>().DOAnchorPosY(300, 0.5f).SetEase(Ease.OutBack);
     }
     public override void Hide()
@@ -19,7 +19,7 @@ public class UIDialog : UIBase
             UIManager.instance.ShowUIForCutscene();
         }
         player.GetComponent<Player>().EnableControls();
-        Camera.main.GetComponent<FPSCamera>().EnableCamera();
+        GameManager.instance.player.EnableCamera();
         GetComponentInChildren<RectTransform>().DOAnchorPosY(-300, 0.5f).SetEase(Ease.InBack).OnComplete(()=>base.Hide());  
     }
 }

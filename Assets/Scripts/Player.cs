@@ -27,6 +27,7 @@ public class Player : MonoBehaviour, IDamagable
     public InputAction use;
     public InputAction sprintStart;
     public InputAction sprintFinish;
+    public InputAction look;
     [Header("Interactable Object")]
     public InteractableObject currentInteractableObject;
     [Header("Detect Interactable Object")]
@@ -39,8 +40,8 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private float attackDelayTimer;
     
     [Header("Hit Count Reset")]
-    float hitCountTimer;
-    public float hitCountResetTime;
+    [SerializeField] private float hitCountTimer;
+    private float hitCountResetTime = 3f;
 
     [Header("Pickupable Object")]
     public Transform rightHand;
@@ -56,6 +57,7 @@ public class Player : MonoBehaviour, IDamagable
     [SerializeField] private bool enableInteract = true;
     [SerializeField] private bool enableUse = true;
     [SerializeField] private bool enableSprint = true;
+    [SerializeField] private bool gotHit = false;
     public bool enableDetectInteractableObject = true;
     private string isWalkingString = "isWalking";
     private string attackString = "attack";
@@ -70,30 +72,37 @@ public class Player : MonoBehaviour, IDamagable
         // transform.position = spawnPoint.position;
         currentSpeed = speed;
         currentStamina = maxStamina;
+        hitCountTimer = hitCountResetTime;
     }
 
     private void Update() {
         if(GameManager.instance.isPaused) return;
         if(hitCount <= 0){
-            GameManager.instance.GameOver();
-        }
-
-        hitCountTimer -= Time.deltaTime;
-        if(hitCountTimer <= 0){
-            ResetHitCountTimer();
+            
         }
 
         attackDelayTimer -= Time.deltaTime;
-
+        
+        // hit -> timer jalan ke 0 -> kalau kena hit -> hitCount -= damage -> timer reset
+       // hit -> timer jalan ke 0 -> kalau timer ke 0 -> hitCount = 3
+        if(gotHit){
+            hitCountTimer -= Time.deltaTime;
+            if(hitCountTimer <= 0){
+                ResetHitCount();
+            }
+        }
+        if(hitCount <= 0){
+            PlayerRespawn();
+        }
 
         if(enableDetectInteractableObject){
             DetectInteractableObject();
         }
-        moveDirection = move.ReadValue<Vector3>();
-       
-        anim.SetBool(isWalkingString,moveDirection != Vector3.zero);
-        
+        moveDirection = move.ReadValue<Vector3>();// movement
 
+        anim.SetBool(isWalkingString,moveDirection != Vector3.zero);// anim
+        
+        // Player Stamina
         if(currentStamina > maxStamina){
             currentStamina = maxStamina;
         }
@@ -113,13 +122,24 @@ public class Player : MonoBehaviour, IDamagable
         transform.position += moveDirection * currentSpeed * Time.fixedDeltaTime;
     }
 
-    private void MeleeAttack(InputAction.CallbackContext context){
-        if(attackDelayTimer > 0) return;
+    public void Attack(){
         anim.SetTrigger(attackString);
+    }
+    public void DetectAttack(){
         Collider[] hitEnemies = Physics.OverlapSphere(attackPoint.position, attackRadius, LayerMask.GetMask("Enemy"));
-        foreach (IDamagable enemy in hitEnemies)
-        {
-            enemy.TakeDamage(attackDamage);
+        if(hitEnemies.Length > 0){
+            foreach (Collider hit in hitEnemies)
+            {
+                if(hit.TryGetComponent(out IDamagable damagable)){
+                    if(hit.TryGetComponent(out NPC enemyNPC)){
+                        if(enemyNPC.state != NPC.State.FAINT){
+                            damagable.TakeDamage(attackDamage);
+                        }
+                    }
+                    SoundManager.instance.PlaySound2D("Punch");
+                    return;
+                }
+            }   
         }
         attackDelayTimer = attackDelay;
     }
@@ -146,7 +166,7 @@ public class Player : MonoBehaviour, IDamagable
         
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         
-        if(Physics.Raycast(ray, out hit, 2f,LayerMask.GetMask("Interactable"))){
+        if(Physics.Raycast(ray, out hit, 1.5f,LayerMask.GetMask("Interactable"))){
             InteractableObject detectedInteractableObject = hit.collider.GetComponent<InteractableObject>();
             if(detectedInteractableObject != null && detectedInteractableObject.isInteractable){
                 currentInteractableObject = detectedInteractableObject;
@@ -167,12 +187,15 @@ public class Player : MonoBehaviour, IDamagable
 
     public void TakeDamage(int damage)
     {
+        gotHit = true;
         Camera.main.DOShakeRotation(0.2f, 20, 10, 90, true);
         UIManager.instance.uiHitEffect.Activate();
         hitCount -= damage;
-    }
-    public void ResetHitCountTimer(){
         hitCountTimer = hitCountResetTime;
+    }
+    public void ResetHitCount(){
+        hitCount = 3;
+        gotHit = false;
     }
 
     public void SetRightHandObject(PickupableObject pickupableObject){
@@ -200,7 +223,14 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
-
+    public void PlayerRespawn(){
+        gotHit = false;
+        hitCount = 3;
+        hitCountTimer = hitCountResetTime;
+        UIManager.instance.uiBlackScreen.IncreaseDay();
+        UIManager.instance.uiBlackScreen.Show();
+        PlayTimeline("PlayerWakeUp");
+    }
     public void SprintPressed(){
         isSprinting = true;
         currentSpeed *= speedMultiplier;
@@ -222,6 +252,8 @@ public class Player : MonoBehaviour, IDamagable
         move.Enable();
         interact.Enable();
         use.Enable();
+        look.Enable();
+        attack.Enable();
     }
     public void DisableControls(){
         print("DisableControls");
@@ -231,7 +263,7 @@ public class Player : MonoBehaviour, IDamagable
         use.Disable();
         sprintFinish.Disable();
         sprintStart.Disable();
-
+        look.Disable();
     }
 
     
@@ -242,10 +274,20 @@ public class Player : MonoBehaviour, IDamagable
         use = playerControls.Player.Use;
         sprintStart = playerControls.Player.SprintStart;
         sprintFinish = playerControls.Player.SprintFinish;
+        look = playerControls.Player.Look;
 
-        attack.performed += MeleeAttack;
+        attack.performed += ctx =>{
+            if(attackDelayTimer <= 0 && !GameManager.instance.isPaused){
+                Attack();
+            }
+        };
+        
         interact.performed += Interact;
-        interact.performed += ctx => SoundManager.instance.PlaySound2D("PlayerInteract");
+        // interact.performed += ctx => {
+        //     if(currentInteractableObject != null){
+        //         SoundManager.instance.PlaySound2D("PlayerInteract");
+        //     }
+        // };
 
         sprintStart.performed += ctx => SprintPressed();
         sprintFinish.performed += ctx => SprintReleased();
@@ -293,6 +335,12 @@ public class Player : MonoBehaviour, IDamagable
         enableAttack =false;
         attack.Disable();
     }
+    public void EnableCamera(){
+        Camera.main.GetComponent<FPSCamera>().EnableCamera();
+    }
+    public void DisableCamera(){
+        Camera.main.GetComponent<FPSCamera>().DisableCamera();
+    }
     public void MakeCurrentInteractableObjectNull(){
         currentInteractableObject = null;
     }
@@ -311,7 +359,11 @@ public class Player : MonoBehaviour, IDamagable
             onWhatGround = GroundType.GRAVEL;
         }
     }
+    public void PlayAirPunchSound(){
+        SoundManager.instance.PlaySound2D("Air-Punch");
+    }
 }
+
 
 public enum GroundType{
     GRASS,

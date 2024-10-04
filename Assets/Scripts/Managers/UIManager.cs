@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : SingletonMonoBehaviour<UIManager>
 {
@@ -16,6 +17,7 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIUse uiUsePrefab;
     public UISprintBar uiSprintBarPrefab;
     public UIHitEffect uiHitEffectPrefab;
+    public UISettings uiSettingsPrefab;
 
     //------ScriptReferences----
     [Header("UI References")]
@@ -27,9 +29,12 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
     public UIUse uiUse;
     public UISprintBar uiSprintBar;
     public UIHitEffect uiHitEffect;
+    public UISettings uiSettings;
 
     [Header("Canvas")]
     public Transform canvas;
+    public PlayerInputActions inputActions;
+    public InputAction pauseAction;
     private void Start() {
         uiObjectiveTexts = Instantiate(uiObjectiveTextsPrefab,canvas);
         uiInteract = Instantiate(uiInteractPrefab,canvas);
@@ -38,7 +43,10 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiSprintBar = Instantiate(uiSprintBarPrefab,canvas);
         uiHitEffect = Instantiate(uiHitEffectPrefab,canvas);
         uiPause = Instantiate(uiPausePrefab,canvas);
+        uiSettings = Instantiate(uiSettingsPrefab,canvas);
         uiBlackScreen = Instantiate(uiBlackScreenPrefab,canvas);
+        uiSettings.Hide();
+        uiBlackScreen.Show();
         uiHitEffect.Hide();
         uiUse.Hide();
         uiBook.Hide();
@@ -54,22 +62,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         else{
             Cursor.lockState = CursorLockMode.None;
         }
-
-        if(Input.GetKeyDown(KeyCode.Escape)){
-            if(currentUI == UI.BOOK){
-                HideUI(UI.BOOK);
-            }
-            else if(currentUI == UI.PAUSE){
-                HideUI(UI.PAUSE);
-                GameManager.instance.ResumeGame();
-            }
-            else{
-                GameManager.instance.PauseGame();
-                ShowUI(UI.PAUSE);
-            }
-        }
     }
     public void ShowUI(UI ui){
+        print("Showing UI: " + ui);
         if(currentUI == ui){
             return;
         }
@@ -81,6 +76,9 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
                 break;
             case UI.BOOK:
                 uiBook.Show();
+                break;
+            case UI.SETTINGS:
+                uiSettings.Show();
                 break;
         }
         currentUI = ui;
@@ -96,9 +94,11 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
             case UI.BOOK:
                 uiBook.Hide();
                 break;
+            case UI.SETTINGS:
+                uiSettings.Hide();
+                break;
         }
         currentUI = UI.GAMEPLAY;
-
     }
 
     public void HideUIForCutscene(){
@@ -114,8 +114,41 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
         uiUse.Show();
         enableCursor = true;
     }
+    
     public void UpdateObjectiveTexts(string mainText){
         uiObjectiveTexts.objectiveText.text = mainText;
+    }
+    public void DisableCursor(){
+        enableCursor = false;
+    }
+    public void EnableCursor(){
+        enableCursor = true;
+    }
+    public void OnEnable(){
+        inputActions = new PlayerInputActions();
+        pauseAction = inputActions.UI.Pause;
+        pauseAction.Enable();
+        pauseAction.performed += ctx => {
+            if(currentUI == UI.BOOK){
+                ShowUI(UI.GAMEPLAY);
+            }
+            else if(currentUI == UI.PAUSE){
+                ShowUI(UI.GAMEPLAY);
+                Cursor.lockState = CursorLockMode.Locked;
+                GameManager.instance.ResumeGame();
+            }
+            else if(currentUI == UI.SETTINGS){
+                ShowUI(UI.GAMEPLAY);
+                GameManager.instance.ResumeGame();
+            }
+            else{
+                GameManager.instance.PauseGame();
+                ShowUI(UI.PAUSE);
+            }
+        };
+    }
+    public void PlayButtonClick(){
+        SoundManager.instance.PlaySound2D("UI_ButtonClick");
     }
 }
 
@@ -124,5 +157,6 @@ public class UIManager : SingletonMonoBehaviour<UIManager>
 public enum UI{
     PAUSE,
     GAMEPLAY,
-    BOOK
+    BOOK,
+    SETTINGS
 }

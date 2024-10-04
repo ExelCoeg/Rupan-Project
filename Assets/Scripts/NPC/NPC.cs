@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,9 +16,9 @@ public class NPC : MonoBehaviour,IDamagable
         HIT,
         FAINT
     }
-
+    [SerializeField] private Material hitMaterial;
     [Header("General")]
-    [SerializeField] State state;
+    public State state;
     [SerializeField] NavMeshAgent agent;
     [SerializeField] Player player;
     [SerializeField] bool isHealed;
@@ -80,7 +80,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] private string fallAnim;
     [SerializeField] private string standUpAnim;
     [SerializeField] private string healedAnim;
-
+    
 
     // Scanning rotation state
     
@@ -113,6 +113,7 @@ public class NPC : MonoBehaviour,IDamagable
                 break;
             case State.FAINT:
                 break;
+          
         }
         FieldOfViewCheck();
 
@@ -160,6 +161,8 @@ public class NPC : MonoBehaviour,IDamagable
                 break;
             case State.FAINT:
                 break;
+         
+
         }
     }
 
@@ -187,12 +190,13 @@ public class NPC : MonoBehaviour,IDamagable
                 isAlreadyAttack = false;
                 break;
             case State.ATTACK:
-                animator.CrossFade(idleAnim, 0.1f);
                 break;
             case State.FAINT:
                 animator.CrossFade(fallAnim, 0.1f);
                 isAlreadyAttack = false;
                 FAINT();
+                break;
+            case State.HIT:
                 break;
         }
         agent.speed = movCurrentSpeed;
@@ -233,7 +237,6 @@ public class NPC : MonoBehaviour,IDamagable
             ChangeState(State.IDLE);
         }
     }
-
     public void ChaseState()
     {
         if (canSeePlayer)
@@ -314,12 +317,16 @@ public class NPC : MonoBehaviour,IDamagable
     }
     public void TakeDamage(int damage)
     {
+        if(state == State.FAINT) return;
         Debug.Log("Zombie take damage");
-        currentHealth -= damage;
         if (currentHealth == 0)
         {
             ChangeState(State.FAINT);
         }
+        hitMaterial.DOVector(new Vector3(10,10,10),"_Intensity",0.05f).OnComplete(()=>{
+            hitMaterial.DOVector(new Vector3(1,1,1),"_Intensity",0.5f);
+            currentHealth -= damage;
+            });
     }
 
     private void Scanning()
@@ -386,6 +393,8 @@ public class NPC : MonoBehaviour,IDamagable
             canSeePlayer = false;
         }
     }
+
+  
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position,rangeAttack);
     }

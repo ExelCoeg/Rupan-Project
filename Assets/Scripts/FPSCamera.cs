@@ -1,3 +1,4 @@
+using System.Security.Cryptography;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class FPSCamera : MonoBehaviour
@@ -17,12 +18,7 @@ public class FPSCamera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = true;
     }
-    public void EnableCamera(){
-        look.Enable();
-    }
-    public void DisableCamera(){
-        look.Disable();
-    }
+    
 
     void Update()
     {
@@ -40,9 +36,18 @@ public class FPSCamera : MonoBehaviour
     }
     public void OnEnable(){
         look = playerControls.Player.Look;
-        look.Enable();
+        EnableCamera();
     }
     public void OnDisable(){
+        DisableCamera();
+    }
+
+    public void EnableCamera(){
+        look.Enable();
+    }
+
+    public void DisableCamera(){
         look.Disable();
     }
+
 }

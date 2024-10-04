@@ -54,6 +54,7 @@ MonoBehaviour:
   uiUsePrefab: {fileID: 4510635300933146999, guid: 95061d6d96aa8124cacef2896d9d674f, type: 3}
   uiSprintBarPrefab: {fileID: 8796907913898016668, guid: 7a6d56bc42570114b9376cbdc94a36e8, type: 3}
   uiHitEffectPrefab: {fileID: 8954672083698819414, guid: bacb957c631deb8439c7b49175873be1, type: 3}
+  uiSettingsPrefab: {fileID: 1570373804863736066, guid: 546b4d7aae73f324798a89dee7604631, type: 3}
   uiPause: {fileID: 0}
   uiInteract: {fileID: 0}
   uiObjectiveTexts: {fileID: 0}
@@ -62,4 +63,14 @@ MonoBehaviour:
   uiUse: {fileID: 0}
   uiSprintBar: {fileID: 0}
   uiHitEffect: {fileID: 0}
+  uiSettings: {fileID: 0}
   canvas: {fileID: 0}
+  pauseAction:
+    m_Name: Pause
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: d6a3c100-c357-48dc-ad24-7ac20b1f3e0e
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0

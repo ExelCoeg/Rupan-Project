@@ -228,12 +228,28 @@ MonoBehaviour:
     - {fileID: 8300000, guid: 92ece0e4d5fe3fa4bad7bdfb0bcc5018, type: 3}
     - {fileID: 8300000, guid: 53720455bb4107e4bad362424f439766, type: 3}
     - {fileID: 8300000, guid: 39ab419b318862149a42deb05d5b28ee, type: 3}
-  - groupID: Door
+  - groupID: DoorOpen
     clips:
     - {fileID: 8300000, guid: 16c93407d4a165c4e8244c97f2d7de1c, type: 3}
+  - groupID: DoorClose
+    clips:
+    - {fileID: 8300000, guid: f5e0456bed706744e86ca6d7db8d970c, type: 3}
   - groupID: ObjectiveUpdate
     clips:
     - {fileID: 8300000, guid: 153a0eda74f5eda4a935b8d85e674e7e, type: 3}
+  - groupID: PlayerInteract
+    clips:
+    - {fileID: 8300000, guid: 9426cf2c5e8284e46ac432f2f70f64be, type: 3}
+  - groupID: ObjectiveUpdate
+    clips:
+    - {fileID: 8300000, guid: 153a0eda74f5eda4a935b8d85e674e7e, type: 3}
+    - {fileID: 8300000, guid: 9426cf2c5e8284e46ac432f2f70f64be, type: 3}
+  - groupID: Punch
+    clips:
+    - {fileID: 8300000, guid: 3189dd13a004121489e39af4fb0b1202, type: 3}
+  - groupID: Air-Punch
+    clips:
+    - {fileID: 8300000, guid: 0f1ace6f156e2eb4586cbd67227765b5, type: 3}
 --- !u!114 &2419340947193298625
 MonoBehaviour:
   m_ObjectHideFlags: 0

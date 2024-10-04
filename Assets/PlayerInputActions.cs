@@ -438,6 +438,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""6a16f4b3-678d-45ba-8d21-6b6a86720528"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -891,6 +900,17 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""NextDialogue"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2c52f1d5-b79e-4d8a-be7f-38ccabda59d0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -1008,6 +1028,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_UI_TrackedDevicePosition = m_UI.FindAction("TrackedDevicePosition", throwIfNotFound: true);
         m_UI_TrackedDeviceOrientation = m_UI.FindAction("TrackedDeviceOrientation", throwIfNotFound: true);
         m_UI_NextDialogue = m_UI.FindAction("NextDialogue", throwIfNotFound: true);
+        m_UI_Pause = m_UI.FindAction("Pause", throwIfNotFound: true);
         // Cheats
         m_Cheats = asset.FindActionMap("Cheats", throwIfNotFound: true);
         m_Cheats_NextObjective = m_Cheats.FindAction("NextObjective", throwIfNotFound: true);
@@ -1177,6 +1198,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_TrackedDevicePosition;
     private readonly InputAction m_UI_TrackedDeviceOrientation;
     private readonly InputAction m_UI_NextDialogue;
+    private readonly InputAction m_UI_Pause;
     public struct UIActions
     {
         private @PlayerInputActions m_Wrapper;
@@ -1192,6 +1214,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         public InputAction @TrackedDevicePosition => m_Wrapper.m_UI_TrackedDevicePosition;
         public InputAction @TrackedDeviceOrientation => m_Wrapper.m_UI_TrackedDeviceOrientation;
         public InputAction @NextDialogue => m_Wrapper.m_UI_NextDialogue;
+        public InputAction @Pause => m_Wrapper.m_UI_Pause;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1234,6 +1257,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @NextDialogue.started += instance.OnNextDialogue;
             @NextDialogue.performed += instance.OnNextDialogue;
             @NextDialogue.canceled += instance.OnNextDialogue;
+            @Pause.started += instance.OnPause;
+            @Pause.performed += instance.OnPause;
+            @Pause.canceled += instance.OnPause;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -1271,6 +1297,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @NextDialogue.started -= instance.OnNextDialogue;
             @NextDialogue.performed -= instance.OnNextDialogue;
             @NextDialogue.canceled -= instance.OnNextDialogue;
+            @Pause.started -= instance.OnPause;
+            @Pause.performed -= instance.OnPause;
+            @Pause.canceled -= instance.OnPause;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -1402,6 +1431,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         void OnTrackedDevicePosition(InputAction.CallbackContext context);
         void OnTrackedDeviceOrientation(InputAction.CallbackContext context);
         void OnNextDialogue(InputAction.CallbackContext context);
+        void OnPause(InputAction.CallbackContext context);
     }
     public interface ICheatsActions
     {

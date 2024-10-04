@@ -6,13 +6,15 @@ using UnityEngine.Video;
 public class GameManager : SingletonMonoBehaviour<GameManager>
 {
     public bool isPaused;
+    public Player player;
+
+    private void Start() {
+        player = FindObjectOfType<Player>();
+    }
     // Start is called before the first frame update
     public void PlayGame(){
         SceneManager.LoadScene("Game");
     }
-    public void GameOver(){
-        Debug.Log("Game Over");
-    }   
 
     public void RestartGame(){
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);

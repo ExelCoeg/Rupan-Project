@@ -375,7 +375,7 @@ PlayableDirector:
   m_Enabled: 1
   serializedVersion: 3
   m_PlayableAsset: {fileID: 11400000, guid: 59f369274b01ba94cb75478e3a54781f, type: 2}
-  m_InitialState: 1
+  m_InitialState: 0
   m_WrapMode: 2
   m_DirectorUpdateMode: 1
   m_InitialTime: 0
@@ -406,6 +406,18 @@ MonoBehaviour:
         - m_Target: {fileID: 1836577215685616794}
           m_TargetAssemblyTypeName: Player, Assembly-CSharp
           m_MethodName: DisableControls
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 837332342358287673, guid: 55dc50519f8d6524284bc9d2a13f93c4, type: 3}
+          m_TargetAssemblyTypeName: UIBlackScreen, Assembly-CSharp
+          m_MethodName: Show
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1068,7 +1080,7 @@ Transform:
   - {fileID: 3726834904195801602}
   - {fileID: 2300747621789969506}
   m_Father: {fileID: 4135911132868755035}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -30.517485}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -49.874992}
 --- !u!1 &2194541393333416639
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,17 +1528,25 @@ MonoBehaviour:
     m_SingletonActionBindings: []
     m_Flags: 0
   currentInteractableObject: {fileID: 0}
-  enableDetectInteractableObject: 1
   attackPoint: {fileID: 2013044632890159019}
   attackRadius: 0.5
-  attackDamage: 0
-  hitCountResetTime: 0
+  attackDamage: 1
+  attackDelay: 0.2
+  attackDelayTimer: 0
+  hitCountTimer: 0
   rightHand: {fileID: 6676680863126062440}
   currentPickupableObject: {fileID: 0}
   playerTimelines:
   - {fileID: 5076852124363445874}
   spawnPoint: {fileID: 0}
   isSprinting: 0
+  enableMove: 1
+  enableAttack: 1
+  enableInteract: 1
+  enableUse: 1
+  enableSprint: 1
+  gotHit: 0
+  enableDetectInteractableObject: 1
 --- !u!95 &1988297859200981635
 Animator:
   serializedVersion: 5
@@ -3561,7 +3581,7 @@ Transform:
   - {fileID: 8449220741289609962}
   - {fileID: 8607478757992298676}
   m_Father: {fileID: 6360181975734614881}
-  m_LocalEulerAnglesHint: {x: -20.000004, y: -90, z: 90}
+  m_LocalEulerAnglesHint: {x: -10.136734, y: -69.94565, z: -24.61506}
 --- !u!1 &9161062066491364845
 GameObject:
   m_ObjectHideFlags: 0

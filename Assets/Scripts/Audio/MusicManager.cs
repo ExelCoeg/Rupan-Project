@@ -7,8 +7,7 @@ public class MusicManager : MonoBehaviour
 
 	[SerializeField]
 	private MusicLibrary musicLibrary;
-	[SerializeField]
-    private AudioSource musicSource;
+    public AudioSource musicSource;
 
 	private void Awake()
 	{
@@ -48,5 +47,8 @@ public class MusicManager : MonoBehaviour
 			musicSource.volume = Mathf.Lerp(0, 0.7f, percent);
 			yield return null;
 		}
+	}
+	public void SetVolume(float volume){
+		musicSource.volume = volume;
 	}
 }
