@@ -73,6 +73,7 @@ public class NPC : MonoBehaviour,IDamagable
     private Vector3 lastKnownPlayerPosition;
     [Header("Animation")]
     [SerializeField] private Animator animator;
+    [SerializeField] private List<string> idleAnimList;
     [SerializeField] private string idleAnim;
     [SerializeField] private string walkAnim;
     [SerializeField] private string runAnim;
@@ -121,6 +122,8 @@ public class NPC : MonoBehaviour,IDamagable
         {
             isWalkPointSet = false;
         }
+        if(agent.remainingDistance <= agent.stoppingDistance) StopAgent(); 
+        else StopAgent(false);    
     }
 
     public void Detection()
@@ -128,6 +131,7 @@ public class NPC : MonoBehaviour,IDamagable
         switch (state)
         {
             case State.IDLE:
+                break;
             case State.PATROLING:
                 if (canSeePlayer)
                 {
@@ -135,12 +139,10 @@ public class NPC : MonoBehaviour,IDamagable
                 }
                 break;
             case State.CHASE:
-                if (!canSeePlayer && isWalkPointSet)
+                
+                if (!canSeePlayer && !isWalkPointSet)
                 {
                     SetDestination(lastKnownPlayerPosition);
-                }
-                if (!isWalkPointSet)
-                {
                     ChangeState(State.PATROLING);
                 }
 
@@ -176,7 +178,7 @@ public class NPC : MonoBehaviour,IDamagable
         switch (state)
         {
             case State.IDLE:
-                animator.CrossFade(idleAnim, 0.1f);
+                animator.CrossFade(idleAnimList[Random.Range(0,idleAnimList.Count)], 0.1f);
                 isAlreadyAttack = false;
                 break;
             case State.PATROLING:
@@ -186,6 +188,7 @@ public class NPC : MonoBehaviour,IDamagable
                 break;
             case State.CHASE:
                 movCurrentSpeed = movSpeedRun;
+                SetDestination(playerTransform.position);
                 animator.CrossFade(runAnim, 0.1f);
                 isAlreadyAttack = false;
                 break;
@@ -194,7 +197,7 @@ public class NPC : MonoBehaviour,IDamagable
             case State.FAINT:
                 animator.CrossFade(fallAnim, 0.1f);
                 isAlreadyAttack = false;
-                FAINT();
+                Faint();
                 break;
             case State.HIT:
                 break;
@@ -204,60 +207,63 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void IdleState()
     {
-        SetDestination(transform.position);
-        if (!isScanning)
-        {
-            Debug.Log("Scanning run");
-            isScanning = true;
+        // SetDestination(transform.position);
+        // if (!isScanning)
+        // {
+        //     Debug.Log("Scanning run");
+        //     isScanning = true;
 
-            startRotation = transform.rotation;
-            bool rotateRight = Random.Range(0, 2) == 0;
-            endRotation = Quaternion.Euler(transform.eulerAngles + (rotateRight ? Vector3.up * scanningAngle : Vector3.up * -scanningAngle));
+        //     startRotation = transform.rotation;
+        //     bool rotateRight = Random.Range(0, 2) == 0;
+        //     endRotation = Quaternion.Euler(transform.eulerAngles + (rotateRight ? Vector3.up * scanningAngle : Vector3.up * -scanningAngle));
 
-            rotatingToEnd = true;
-            timeElapsed = 0f;
-        }
-        if (isScanning)
-        {
-            Scanning();
-        }
+        //     rotatingToEnd = true;
+        //     timeElapsed = 0f;
+        // }
+
+        // if (isScanning)
+        // {
+        //     Scanning();
+        // }
+        Scanning();
     }
 
     public void PatrolingState()
     {
-        if (!isWalkPointSet)
-        {
-            SetDestination(GetRandomWalkPoint());
-        }
+        if(!isWalkPointSet) SetDestination(GetRandomWalkPoint());
+        
 
         float randomIdleDelay = Random.Range(minIdleDelay, maxIdleDelay);
 
         if (Time.time - lastIdleTime > randomIdleDelay)
         {
             ChangeState(State.IDLE);
+            return;
         }
     }
     public void ChaseState()
     {
+        SetDestination(playerTransform.position);
         if (canSeePlayer)
         {
             lastKnownPlayerPosition = playerTransform.position;  // Update lokasi terakhir player terlihat
-            SetDestination(playerTransform.position);
+        }
+        else{
+            ChangeState(State.PATROLING);
         }
     }
 
     public void AttackState()
     {
-        SetDestination(transform.position);
         if (!isAlreadyAttack && (Time.time - lastAttackTime) > attackSpeed)
         {
             Debug.Log("attackStart");
-            animator.CrossFade(attackAnim,0.1f,0,0);
+            animator.CrossFade(attackAnim,0.1f);
             isAlreadyAttack = true;
         }
     }
 
-    public void FAINT() 
+    public void Faint() 
     { 
         SetDestination(transform.position);
         StartCoroutine(Revive(5));
@@ -301,11 +307,23 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void SetDestination(Vector3 targetWalkPoint)
     {
-        agent.SetDestination(targetWalkPoint);
+        // agent.SetDestination(targetWalkPoint);
+        Rotate(targetWalkPoint); 
+        
+
         currentWalkPoint = targetWalkPoint;
         isWalkPointSet = true;
     }
-
+    public void Rotate(Vector3 targetPoint){
+        Vector3 direction = targetPoint - transform.position;
+        direction.y = 0;
+        if (direction != Vector3.zero)
+        {
+            // Quaternion targetRotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(direction),0.1f);
+            // transform.rotation = targetRotation;
+            transform.rotation = Quaternion.LookRotation(direction);
+        }
+    }
     public void Attack()
     {
         if (Vector3.Distance(transform.position,playerTransform.position) < rangeAttack)
@@ -334,36 +352,43 @@ public class NPC : MonoBehaviour,IDamagable
         if (canSeePlayer)
         {
             // Instantly stop scanning if player is detected
-            isScanning = false;
+            // isScanning = false;
             ChangeState(State.CHASE);
-            return;
         }
 
-        timeElapsed += Time.deltaTime;
+        // timeElapsed += Time.deltaTime;
+        // if(timeElapsed >= scanningSpeed){
+        //     // isScanning= false;
+        //     ChangeState(State.PATROLING);
+        //     timeElapsed = 0f;
+        // }
+        // Rotate NPC either towards endRotation or back to tRotation
+        // if (rotatingToEnd)
+        // {
+        //     transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / scanningSpeed);
 
-        // Rotate NPC either towards endRotation or back to startRotation
-        if (rotatingToEnd)
-        {
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / scanningSpeed);
+        //     if (timeElapsed >= scanningSpeed)
+        //     {
+        //         // After reaching the end rotation, start rotating back
+        //         rotatingToEnd = false;
+        //         timeElapsed = 0f;
+        //     }
+        // }
+        // else
+        // {
+        //     transform.rotation = Quaternion.Slerp(endRotation, startRotation, timeElapsed / scanningSpeed);
 
-            if (timeElapsed >= scanningSpeed)
-            {
-                // After reaching the end rotation, start rotating back
-                rotatingToEnd = false;
-                timeElapsed = 0f;
-            }
-        }
-        else
-        {
-            transform.rotation = Quaternion.Slerp(endRotation, startRotation, timeElapsed / scanningSpeed);
-
-            if (timeElapsed >= scanningSpeed)
-            {
-                // Once the rotation is back to the start, stop scanning and resume patroling
-                isScanning = false;
-                ChangeState(State.PATROLING);
-            }
-        }
+        //     if (timeElapsed >= scanningSpeed)
+        //     {
+        //         // Once the rotation is back to the start, stop scanning and resume patroling
+        //         isScanning = false;
+        //         ChangeState(State.PATROLING);
+        //     }
+        // }
+    }
+    
+    public void ChangeToPatrolingState(){
+        ChangeState(State.PATROLING);
     }
 
     public Vector3 GetRandomWalkPoint()
@@ -394,8 +419,14 @@ public class NPC : MonoBehaviour,IDamagable
         }
     }
 
+    public void StopAgent(bool stop = true){
+        agent.isStopped = stop;
+    }
   
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position,rangeAttack);
+        if(agent.hasPath){
+            Gizmos.DrawLine(transform.position,agent.pathEndPosition);
+        }
     }
 }
