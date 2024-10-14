@@ -19,7 +19,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] private Material hitMaterial;
     [Header("General")]
     public State state;
-    [SerializeField] NavMeshAgent agent;
+    // [SerializeField] NavMeshAgent agent;
     [SerializeField] Player player;
     [SerializeField] bool isHealed;
 
@@ -88,8 +88,8 @@ public class NPC : MonoBehaviour,IDamagable
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = movSpeed;
+        // agent = GetComponent<NavMeshAgent>();
+        // agent.speed = movSpeed;
         player = FindAnyObjectByType<Player>();
         playerTransform = player.transform;
         ChangeState(State.PATROLING);
@@ -122,8 +122,8 @@ public class NPC : MonoBehaviour,IDamagable
         {
             isWalkPointSet = false;
         }
-        if(agent.remainingDistance <= agent.stoppingDistance) StopAgent(); 
-        else StopAgent(false);    
+        // // if(agent.remainingDistance <= agent.stoppingDistance) StopAgent(); 
+        // else StopAgent(false);    
     }
 
     public void Detection()
@@ -202,7 +202,7 @@ public class NPC : MonoBehaviour,IDamagable
             case State.HIT:
                 break;
         }
-        agent.speed = movCurrentSpeed;
+        // agent.speed = movCurrentSpeed;
     }
 
     public void IdleState()
@@ -271,6 +271,8 @@ public class NPC : MonoBehaviour,IDamagable
 
     public IEnumerator Revive(float delayTime)
     {
+        // GetComponent<Collider>().enabled = false;
+        
         if (animator == null)
         {
             Debug.LogError("Animator is null in Revive()");
@@ -285,23 +287,24 @@ public class NPC : MonoBehaviour,IDamagable
         animator.CrossFade(standUpAnim,0.1f);
         currentHealth = maxHealth;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-        if (playerTransform != null)
-        {
-            Vector3 direction = playerTransform.position - transform.position;
-            direction.y = 0;
-            if (direction != Vector3.zero)
-            {
-                Quaternion targetRotation = Quaternion.LookRotation(direction);
-                transform.rotation = targetRotation;
-            }
-        }
+        
+        // if (playerTransform != null)
+        // {
+        //     Vector3 direction = playerTransform.position - transform.position;
+        //     direction.y = 0;
+        //     if (direction != Vector3.zero)
+        //     {
+        //         Quaternion targetRotation = Quaternion.LookRotation(direction);
+        //         transform.rotation = targetRotation;
+        //     }
+        // }
         NPCManager.instance.HealNPC();
         isHealed = true;
+        transform.DOMoveY(0,0.1f);
         animator.CrossFade(healedAnim,0.1f);
+
     }
-    public void RunOutOfWord(){
-        Debug.Log("TO out word");
-        agent.speed = 3;
+    public void RunAfterDeath(){
         SetDestination(NPCManager.instance.GetRandomOutPoint());
     }
 
@@ -420,13 +423,13 @@ public class NPC : MonoBehaviour,IDamagable
     }
 
     public void StopAgent(bool stop = true){
-        agent.isStopped = stop;
+        // agent.isStopped = stop;
     }
   
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position,rangeAttack);
-        if(agent.hasPath){
-            Gizmos.DrawLine(transform.position,agent.pathEndPosition);
+        if(isWalkPointSet){
+            Gizmos.DrawLine(transform.position,currentWalkPoint);
         }
     }
 }
