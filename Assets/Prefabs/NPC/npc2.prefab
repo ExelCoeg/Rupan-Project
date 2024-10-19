@@ -2276,7 +2276,9 @@ GameObject:
   - component: {fileID: 3814687009557441083}
   - component: {fileID: 2972440495372309607}
   - component: {fileID: 8434280205749587841}
-  m_Layer: 0
+  - component: {fileID: 7578465726116814433}
+  - component: {fileID: 8696230271654518376}
+  m_Layer: 8
   m_Name: npc2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2362,8 +2364,8 @@ MonoBehaviour:
   isScanning: 0
   damage: 0
   attackSpeed: 3
-  rangeAttack: 2
-  lastAttackTime: 0
+  rangeAttack: 2.5
+  attackDelay: 0
   isAlreadyAttack: 0
   maxHealth: 3
   currentHealth: 3
@@ -2371,13 +2373,64 @@ MonoBehaviour:
   idleAnimList:
   - NPC2_Turn
   - NPC2_TurnTwo
-  idleAnim: NPC2_Turn
   walkAnim: NPC2_Walk
   runAnim: NPC2_Run
   attackAnim: NPC2_Attack
   fallAnim: NPC2_Fall
   standUpAnim: NPC2_StandUp
   healedAnim: NPC2_Healed
+  isChangeStateDebug: 1
+  distanceToTarget: 0
+--- !u!54 &7578465726116814433
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549608982436409225}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 4
+  m_CollisionDetection: 0
+--- !u!136 &8696230271654518376
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5549608982436409225}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Height: 2.4649415
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.767529, z: 0}
 --- !u!1 &5776567646307761786
 GameObject:
   m_ObjectHideFlags: 0

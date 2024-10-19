@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -30,8 +31,9 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float movCurrentSpeed;
 
     [Header("Walkpoint System")]
+    [SerializeField] private int walkPointIndex;
+    [SerializeField] private WalkPointList walkPoints;
     [SerializeField] Transform SpawnPoint;
-    [SerializeField] List<Transform> WalkPointList;
     [Space]
     [SerializeField] Vector3 currentWalkPoint;
     [SerializeField] bool isWalkPointSet;
@@ -52,17 +54,18 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float scanningSpeed;
     [Space]
     [SerializeField] bool isScanning;
-    private Quaternion startRotation;
-    private Quaternion endRotation;
-    private bool rotatingToEnd;
-    private float timeElapsed;
+    // private Quaternion startRotation;
+    // private Quaternion endRotation;
+    // private bool rotatingToEnd;
+    // private float timeElapsed;
 
     [Header("Attack System")]
     [SerializeField] float damage;
     [SerializeField] float attackSpeed;//based on second
     [SerializeField] float rangeAttack;
     [Space]
-    [SerializeField] float lastAttackTime;
+    // [SerializeField] float lastAttackTime;
+    [SerializeField] float attackDelay;
     [SerializeField] bool isAlreadyAttack;
     [Header("Health System")]
     [SerializeField] float maxHealth = 3;
@@ -74,7 +77,7 @@ public class NPC : MonoBehaviour,IDamagable
     [Header("Animation")]
     [SerializeField] private Animator animator;
     [SerializeField] private List<string> idleAnimList;
-    [SerializeField] private string idleAnim;
+    // [SerializeField] private string idleAnim;
     [SerializeField] private string walkAnim;
     [SerializeField] private string runAnim;
     [SerializeField] private string attackAnim;
@@ -83,13 +86,17 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] private string healedAnim;
     
 
-    // Scanning rotation state
-    
+   #region Debug Variables
+   [Header("Debug Variables")]
+    [SerializeField] private bool isChangeStateDebug;
+    [SerializeField] private float distanceToTarget;
+    #endregion
 
     void Start()
     {
         // agent = GetComponent<NavMeshAgent>();
         // agent.speed = movSpeed;
+        walkPoints = NPCManager.instance.GetWalkPointList(walkPointIndex);
         player = FindAnyObjectByType<Player>();
         playerTransform = player.transform;
         ChangeState(State.PATROLING);
@@ -146,7 +153,7 @@ public class NPC : MonoBehaviour,IDamagable
                     ChangeState(State.PATROLING);
                 }
 
-                if (Vector3.Distance(transform.position, playerTransform.position) < rangeAttack)
+                if (distanceToTarget < rangeAttack)
                 {
                     ChangeState(State.ATTACK);
                 }
@@ -156,8 +163,9 @@ public class NPC : MonoBehaviour,IDamagable
                 {
                     ChangeState(State.IDLE);
                 }
-                if (Vector3.Distance(transform.position, playerTransform.position) > rangeAttack)
+                if (distanceToTarget > rangeAttack)
                 {
+
                     ChangeState(State.CHASE);
                 }
                 break;
@@ -170,6 +178,7 @@ public class NPC : MonoBehaviour,IDamagable
 
     private void ChangeState(State newState)
     {
+        if(isChangeStateDebug) Debug.Log("Change state to " + newState);
         if (newState != State.IDLE && state == State.IDLE)
         {
             lastIdleTime = Time.time;
@@ -202,29 +211,10 @@ public class NPC : MonoBehaviour,IDamagable
             case State.HIT:
                 break;
         }
-        // agent.speed = movCurrentSpeed;
     }
 
     public void IdleState()
     {
-        // SetDestination(transform.position);
-        // if (!isScanning)
-        // {
-        //     Debug.Log("Scanning run");
-        //     isScanning = true;
-
-        //     startRotation = transform.rotation;
-        //     bool rotateRight = Random.Range(0, 2) == 0;
-        //     endRotation = Quaternion.Euler(transform.eulerAngles + (rotateRight ? Vector3.up * scanningAngle : Vector3.up * -scanningAngle));
-
-        //     rotatingToEnd = true;
-        //     timeElapsed = 0f;
-        // }
-
-        // if (isScanning)
-        // {
-        //     Scanning();
-        // }
         Scanning();
     }
 
@@ -255,9 +245,9 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void AttackState()
     {
-        if (!isAlreadyAttack && (Time.time - lastAttackTime) > attackSpeed)
+        Rotate(playerTransform.position);
+        if (!isAlreadyAttack)
         {
-            Debug.Log("attackStart");
             animator.CrossFade(attackAnim,0.1f);
             isAlreadyAttack = true;
         }
@@ -288,17 +278,9 @@ public class NPC : MonoBehaviour,IDamagable
         currentHealth = maxHealth;
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
         
-        // if (playerTransform != null)
-        // {
-        //     Vector3 direction = playerTransform.position - transform.position;
-        //     direction.y = 0;
-        //     if (direction != Vector3.zero)
-        //     {
-        //         Quaternion targetRotation = Quaternion.LookRotation(direction);
-        //         transform.rotation = targetRotation;
-        //     }
-        // }
+
         NPCManager.instance.HealNPC();
+        
         isHealed = true;
         transform.DOMoveY(0,0.1f);
         animator.CrossFade(healedAnim,0.1f);
@@ -310,7 +292,6 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void SetDestination(Vector3 targetWalkPoint)
     {
-        // agent.SetDestination(targetWalkPoint);
         Rotate(targetWalkPoint); 
         
 
@@ -322,8 +303,6 @@ public class NPC : MonoBehaviour,IDamagable
         direction.y = 0;
         if (direction != Vector3.zero)
         {
-            // Quaternion targetRotation = Quaternion.Slerp(transform.rotation,Quaternion.Euler(direction),0.1f);
-            // transform.rotation = targetRotation;
             transform.rotation = Quaternion.LookRotation(direction);
         }
     }
@@ -333,7 +312,6 @@ public class NPC : MonoBehaviour,IDamagable
         {
             player.TakeDamage((int)damage);
         }
-        lastAttackTime = Time.time;
         isAlreadyAttack = false;
     }
     public void TakeDamage(int damage)
@@ -355,39 +333,8 @@ public class NPC : MonoBehaviour,IDamagable
         if (canSeePlayer)
         {
             // Instantly stop scanning if player is detected
-            // isScanning = false;
             ChangeState(State.CHASE);
         }
-
-        // timeElapsed += Time.deltaTime;
-        // if(timeElapsed >= scanningSpeed){
-        //     // isScanning= false;
-        //     ChangeState(State.PATROLING);
-        //     timeElapsed = 0f;
-        // }
-        // Rotate NPC either towards endRotation or back to tRotation
-        // if (rotatingToEnd)
-        // {
-        //     transform.rotation = Quaternion.Slerp(startRotation, endRotation, timeElapsed / scanningSpeed);
-
-        //     if (timeElapsed >= scanningSpeed)
-        //     {
-        //         // After reaching the end rotation, start rotating back
-        //         rotatingToEnd = false;
-        //         timeElapsed = 0f;
-        //     }
-        // }
-        // else
-        // {
-        //     transform.rotation = Quaternion.Slerp(endRotation, startRotation, timeElapsed / scanningSpeed);
-
-        //     if (timeElapsed >= scanningSpeed)
-        //     {
-        //         // Once the rotation is back to the start, stop scanning and resume patroling
-        //         isScanning = false;
-        //         ChangeState(State.PATROLING);
-        //     }
-        // }
     }
     
     public void ChangeToPatrolingState(){
@@ -396,14 +343,14 @@ public class NPC : MonoBehaviour,IDamagable
 
     public Vector3 GetRandomWalkPoint()
     {
-        Vector3 newWalkPoint = WalkPointList[Random.Range(0, WalkPointList.Count - 1)].position;
+        Vector3 newWalkPoint = walkPoints.GetRandomWalkPoint();
         return newWalkPoint;
     }
 
     public void FieldOfViewCheck()
     {
         Vector3 directionToTarget = (playerTransform.position - transform.position).normalized;
-        float distanceToTarget = Vector3.Distance(transform.position, playerTransform.position);
+        distanceToTarget = Vector3.Distance(transform.position, playerTransform.position);
         if (Vector3.Angle(transform.forward, directionToTarget) < detectionAngle / 2 && distanceToTarget <= detectionRadius)
         {
             if (!Physics.Raycast(transform.position, directionToTarget, distanceToTarget, obstructionMask))
@@ -422,9 +369,6 @@ public class NPC : MonoBehaviour,IDamagable
         }
     }
 
-    public void StopAgent(bool stop = true){
-        // agent.isStopped = stop;
-    }
   
     private void OnDrawGizmos() {
         Gizmos.DrawWireSphere(transform.position,rangeAttack);

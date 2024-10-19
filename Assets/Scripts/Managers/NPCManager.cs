@@ -1,24 +1,31 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 public class NPCManager : SingletonMonoBehaviour<NPCManager>
 {
     [SerializeField] List<Transform> outPoint = new List<Transform>();
     [Header("NPC Manager")]
-    [SerializeField] private int unHeadledNPC;
-    [SerializeField] List<NPC> npcList = new List<NPC>();
-    void Start() {
-        unHeadledNPC = npcList.Count;
-    }
+    [SerializeField] private int healedNPC;
+    [SerializeField] private List<WalkPointList> walkPoints = new List<WalkPointList>();
+  
     public void HealNPC(){
-        Debug.Log("INI eror??");
-        unHeadledNPC--;
+        healedNPC++;
     }
-    public int GetUnHealedNPC(){
-        return unHeadledNPC;
+    public int GetHealedNPC(){
+        return healedNPC;
     }
     public Vector3 GetRandomOutPoint(){
         return outPoint[Random.Range(0, outPoint.Count-1)].position;
+    }
+    public WalkPointList GetWalkPointList(int index){
+        return walkPoints[index];
+    }
+}
+
+[System.Serializable]
+public class WalkPointList{
+    public List<Transform> walkPoints = new List<Transform>();
+
+    public Vector3 GetRandomWalkPoint(){
+        return walkPoints[Random.Range(0, walkPoints.Count-1)].position;
     }
 }

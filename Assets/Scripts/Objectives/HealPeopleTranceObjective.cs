@@ -1,12 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class HealPeopleTranceObjective : Objective
 {
+    [SerializeField] private int healPeopleTarget;
     public override void Update() {
-        base.Update();
-        if (NPCManager.instance.GetUnHealedNPC() <= 0)
+        base.Update();  
+        UIManager.instance.UpdateObjectiveTexts("Help the people that are possesed!");
+        if (NPCManager.instance.GetHealedNPC() >= healPeopleTarget)
         {
             base.CompleteObjective();
         }
