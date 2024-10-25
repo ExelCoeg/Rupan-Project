@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float movSpeedRun;
     [Space]
     [SerializeField] float movCurrentSpeed;
+    [SerializeField] NavMeshAgent agent;
 
     [Header("Walkpoint System")]
     [SerializeField] private int walkPointIndex;
@@ -54,10 +55,7 @@ public class NPC : MonoBehaviour,IDamagable
     [SerializeField] float scanningSpeed;
     [Space]
     [SerializeField] bool isScanning;
-    // private Quaternion startRotation;
-    // private Quaternion endRotation;
-    // private bool rotatingToEnd;
-    // private float timeElapsed;
+
 
     [Header("Attack System")]
     [SerializeField] float damage;
@@ -94,7 +92,7 @@ public class NPC : MonoBehaviour,IDamagable
 
     void Start()
     {
-        // agent = GetComponent<NavMeshAgent>();
+        agent = GetComponent<NavMeshAgent>();
         // agent.speed = movSpeed;
         walkPoints = NPCManager.instance.GetWalkPointList(walkPointIndex);
         player = FindAnyObjectByType<Player>();
@@ -220,6 +218,7 @@ public class NPC : MonoBehaviour,IDamagable
 
     public void PatrolingState()
     {
+        
         if(!isWalkPointSet) SetDestination(GetRandomWalkPoint());
         
 

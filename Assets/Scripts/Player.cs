@@ -41,7 +41,7 @@ public class Player : MonoBehaviour, IDamagable
     
     [Header("Hit Count Reset")]
     [SerializeField] private float hitCountTimer;
-    private float hitCountResetTime = 3f;
+    [SerializeField] private float hitCountResetTime = 3f;
 
     [Header("Pickupable Object")]
     public Transform rightHand;
@@ -77,9 +77,6 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Update() {
         if(GameManager.instance.isPaused) return;
-        if(hitCount <= 0){
-            
-        }
 
         attackDelayTimer -= Time.deltaTime;
         
@@ -194,6 +191,7 @@ public class Player : MonoBehaviour, IDamagable
         hitCountTimer = hitCountResetTime;
     }
     public void ResetHitCount(){
+        print("ResetHitCount");
         hitCount = 3;
         gotHit = false;
     }
@@ -223,6 +221,7 @@ public class Player : MonoBehaviour, IDamagable
             }
         }
     }
+    [ContextMenu("PlayerRespawn")]
     public void PlayerRespawn(){
         gotHit = false;
         hitCount = 3;
@@ -233,6 +232,9 @@ public class Player : MonoBehaviour, IDamagable
     }
     public void SprintPressed(){
         isSprinting = true;
+        if(currentStamina <= 0){
+            return;
+        }
         currentSpeed *= speedMultiplier;
     }
     public void SprintReleased(){

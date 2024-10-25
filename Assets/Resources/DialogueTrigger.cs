@@ -27,10 +27,11 @@ public class Dialogue
 public class DialogueTrigger : MonoBehaviour
 {
     public Dialogue dialogue;
-    public bool isPlayInStart = false;
-    public bool isPlayed = false;
-    public bool enableNextDialogueLine;
-    public bool enableUIAfterDialogueLine;
+   [SerializeField] bool isPlayInStart = false;
+   public bool isPlayed = false;
+   [SerializeField] bool enableNextDialogueLine;
+   [SerializeField] bool enableUIAfterDialogueLine;
+   [SerializeField] bool enableNextButton;
     private void Start() {
         if (isPlayInStart)
         {
