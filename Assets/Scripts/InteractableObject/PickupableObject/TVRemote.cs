@@ -11,8 +11,6 @@ public class TVRemote : PickupableObject
     }
     public override void Use()
     {
-        
         CutsceneManager.instance.PlayCutscene(0);
-
     }
 }

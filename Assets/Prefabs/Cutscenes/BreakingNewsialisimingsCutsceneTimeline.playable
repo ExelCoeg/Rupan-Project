@@ -1763,7 +1763,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15c38f6fa1940124db1ab7f6fe7268d1, type: 3}
   m_Name: Signal Emitter
   m_EditorClassIdentifier: 
-  m_Time: 13.9
+  m_Time: 12.983333333333333
   m_Retroactive: 0
   m_EmitOnce: 0
   m_Asset: {fileID: 11400000, guid: f03429585bb28f84d85e7230a3c598bd, type: 2}
@@ -2025,7 +2025,7 @@ MonoBehaviour:
     m_Start: 1.6024791666666671
     m_ClipIn: 0
     m_Asset: {fileID: 2530445747413786873}
-    m_Duration: 12.297520833333333
+    m_Duration: 11.380854166666666
     m_TimeScale: 1
     m_ParentTrack: {fileID: 6877342731829715263}
     m_EaseInDuration: 0
@@ -2091,7 +2091,7 @@ MonoBehaviour:
     m_PreExtrapolationTime: 0
     m_DisplayName: tvStatic
   - m_Version: 1
-    m_Start: 13.9
+    m_Start: 12.983333333333333
     m_ClipIn: 0
     m_Asset: {fileID: 3210159146359690698}
     m_Duration: 1.0024791666666637

@@ -16,6 +16,12 @@ public class UISprintBar : UIBase
     void Update()
     {
         staminaBarLeft.value  = staminaBarRight.value = player.currentStamina/player.maxStamina;
+        if(player.currentStamina >= player.maxStamina){
+            Hide();
+        }
+        else{
+            Show();
+        }
     }
 
     public override void Show()

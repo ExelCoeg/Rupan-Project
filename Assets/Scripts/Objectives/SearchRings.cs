@@ -7,6 +7,9 @@ public class SearchRings : Objective
     public int ringsToFind;
     public int ringsFound;
 
+    private void Start() {
+        GameManager.instance.player.EnableSprint();
+    }
     public override void Update() {
         base.Update();
         mainText = "Collected rings " + ringsFound + "/" + ringsToFind;

@@ -12,11 +12,9 @@ public class NPC1DialogueTrigger : DialogueTrigger
    
     private void OnEnable() {
         DialogueManager.onDialogueEnd += ObjectiveManager.instance.NextObjective;
-        DialogueManager.onDialogueEnd += GameManager.instance.player.EnableSprint;
     }   
     private void OnDisable() {
         DialogueManager.onDialogueEnd -= ObjectiveManager.instance.NextObjective;
-        DialogueManager.onDialogueEnd -= GameManager.instance.player.EnableSprint;
     }
     private void Start() {
         Collider[] hits = Physics.OverlapSphere(transform.position, detectDoorRadius,LayerMask.GetMask("Interactable"));

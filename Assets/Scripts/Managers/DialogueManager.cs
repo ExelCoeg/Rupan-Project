@@ -21,6 +21,8 @@ public class DialogueManager : SingletonMonoBehaviour<DialogueManager>
     public bool isDialogueActive = false;
     public bool enableNextDialogueAction = true;
     public bool enableUIAfterDialogue = true;
+    public bool enableNextButton;
+
     public static event Action onDialogueEnd;
     public Animator animator;
     public override void Awake()

@@ -1,9 +1,9 @@
 using System.Collections.Generic;
 using DG.Tweening;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
+using System.Collections;
 public class Player : MonoBehaviour, IDamagable
 {
     // Rigidbody rb;
@@ -83,11 +83,15 @@ public class Player : MonoBehaviour, IDamagable
         // hit -> timer jalan ke 0 -> kalau kena hit -> hitCount -= damage -> timer reset
        // hit -> timer jalan ke 0 -> kalau timer ke 0 -> hitCount = 3
         if(gotHit){
-            hitCountTimer -= Time.deltaTime;
-            if(hitCountTimer <= 0){
+            // hitCountTimer -= Time.deltaTime;
+            // if(hitCountTimer <= 0){
+            //     ResetHitCount();
+            // }
+            StartCoroutine(TimedBooleanChange(hitCountResetTime, value => {
                 ResetHitCount();
-            }
+            }));
         }
+
         if(hitCount <= 0){
             PlayerRespawn();
         }
@@ -363,6 +367,14 @@ public class Player : MonoBehaviour, IDamagable
     }
     public void PlayAirPunchSound(){
         SoundManager.instance.PlaySound2D("Air-Punch");
+    }
+
+
+    private IEnumerator TimedBooleanChange(float duration, System.Action<bool> setBoolean)
+    {
+        yield return new WaitForSeconds(duration);
+        setBoolean(true);
+        Debug.Log("Boolean set to true after " + duration + " seconds");
     }
 }
 

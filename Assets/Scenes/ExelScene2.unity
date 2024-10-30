@@ -1405,6 +1405,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a11d318bf37c01d489a19dc2dc33ed7d, type: 3}
+--- !u!114 &439027532 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2101870863018960828, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
+  m_PrefabInstance: {fileID: 6141219153915291162}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &463421025
 GameObject:
   m_ObjectHideFlags: 0
@@ -6559,6 +6570,10 @@ PrefabInstance:
     - target: {fileID: 2828376752360078690, guid: eb1491104fc7c4f4a83460fa3e2b5fbe, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 2828376752360078690, guid: eb1491104fc7c4f4a83460fa3e2b5fbe, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 4135911132868755035, guid: eb1491104fc7c4f4a83460fa3e2b5fbe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -30184,6 +30199,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4738186175148043772, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
+      propertyPath: nextButton
+      value: 
+      objectReference: {fileID: 439027532}
     - target: {fileID: 6606579197246777972, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -30263,6 +30282,10 @@ PrefabInstance:
     - target: {fileID: 6606579197246777972, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7305719446053759109, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7393710327164268292, guid: ae86149f1ca86fe45a9b554552bd2830, type: 3}
       propertyPath: enableUIAfterDialogue
@@ -45359,6 +45382,10 @@ PrefabInstance:
       propertyPath: m_Mesh
       value: 
       objectReference: {fileID: 355620121}
+    - target: {fileID: 1145177039908087324, guid: 0b3372ab369f2de4bb59617f1fcb0419, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1637912665938216866, guid: 0b3372ab369f2de4bb59617f1fcb0419, type: 3}
       propertyPath: m_Mesh
       value: 
