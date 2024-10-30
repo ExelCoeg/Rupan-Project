@@ -58,7 +58,9 @@ public class DialogueTrigger : MonoBehaviour
             DialogueManager.instance.DisableNextDialogueAction();
         }
         isPlayed = true;
+        FindObjectOfType<Player>().DisableControls();
         DialogueManager.instance.StartDialogue(dialogue);
+
     }
     private void OnTriggerEnter(Collider other) {
         if(other.CompareTag("Player"))

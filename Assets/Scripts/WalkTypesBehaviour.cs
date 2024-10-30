@@ -10,13 +10,28 @@ public class WalkTypesBehaviour : StateMachineBehaviour
     {
         if(!SoundManager.instance.sfx2DSource.isPlaying && GameManager.instance.isPaused == false){
             if(animator.gameObject.GetComponent<Player>().onWhatGround == GroundType.WOOD){
-                SoundManager.instance.PlaySound2D("WoodWalk");
+                if(animator.gameObject.GetComponent<Player>().isSprinting){
+                    SoundManager.instance.PlaySound2D("WoodWalk",1.2f);
+                }
+                else{
+                    SoundManager.instance.PlaySound2D("WoodWalk");
+                }
             }
             else if(animator.gameObject.GetComponent<Player>().onWhatGround == GroundType.GRASS){
-                SoundManager.instance.PlaySound2D("GrassWalk");
+                if(animator.gameObject.GetComponent<Player>().isSprinting){
+                    SoundManager.instance.PlaySound2D("GrassWalk",1.2f);
+                }
+                else{
+                    SoundManager.instance.PlaySound2D("GrassWalk");
+                }
             }
             else if(animator.gameObject.GetComponent<Player>().onWhatGround == GroundType.GRAVEL){
-                SoundManager.instance.PlaySound2D("GravelWalk");
+                if(animator.gameObject.GetComponent<Player>().isSprinting){
+                    SoundManager.instance.PlaySound2D("GravelWalk",1.2f);
+                }
+                else{
+                    SoundManager.instance.PlaySound2D("GravelWalk");
+                }
             }
         }
         

@@ -7,7 +7,6 @@ public class UIDialog : UIBase
     [SerializeField] Button nextButton;
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
-        player.GetComponent<Player>().DisableControls();
     }
     private void Update() {
         if(DialogueManager.instance.enableNextButton){

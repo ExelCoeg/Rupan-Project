@@ -6489,7 +6489,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1836577215685616794, guid: eb1491104fc7c4f4a83460fa3e2b5fbe, type: 3}
       propertyPath: speedMultiplier
-      value: 3
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1836577215685616794, guid: eb1491104fc7c4f4a83460fa3e2b5fbe, type: 3}
       propertyPath: hitCountResetTime

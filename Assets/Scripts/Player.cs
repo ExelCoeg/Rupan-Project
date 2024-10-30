@@ -4,19 +4,22 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Playables;
 using System.Collections;
+using Unity.VisualScripting;
 public class Player : MonoBehaviour, IDamagable
 {
     // Rigidbody rb;
     Animator anim;
     Vector3 moveDirection;
     RaycastHit hit;
+    [SerializeField] private bool isDebug = true;
     [Header("On What Ground")]
     public GroundType onWhatGround;
+
     [Header("Player Stats")]
     public int hitCount;
     public float speed;
     public float currentSpeed;
-    public float speedMultiplier = 1.5f;
+    public float speedMultiplier = 1.3f;
     public float currentStamina;
     public float maxStamina = 10f;
     [Header("Player Input Actions")]
@@ -124,6 +127,9 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     public void Attack(){
+        if(isDebug){
+            if(isDebug)print("Player is attacking");
+        }
         anim.SetTrigger(attackString);
     }
     public void DetectAttack(){
@@ -147,7 +153,7 @@ public class Player : MonoBehaviour, IDamagable
 
     private void Interact(InputAction.CallbackContext context){
         if(currentInteractableObject != null){
-             print("Interact " + currentInteractableObject.name);
+             if(isDebug)print("Interact " + currentInteractableObject.name);
             currentInteractableObject.Interacted();
         }
     }
@@ -195,7 +201,8 @@ public class Player : MonoBehaviour, IDamagable
         hitCountTimer = hitCountResetTime;
     }
     public void ResetHitCount(){
-        print("ResetHitCount");
+        
+        if(isDebug)print("ResetHitCount");
         hitCount = 3;
         gotHit = false;
     }
@@ -254,7 +261,7 @@ public class Player : MonoBehaviour, IDamagable
     }
 
     public void EnableControls(){
-        print("EnableControls");
+        if(isDebug)print("EnableControls");
         move.Enable();
         interact.Enable();
         use.Enable();
@@ -262,7 +269,7 @@ public class Player : MonoBehaviour, IDamagable
         attack.Enable();
     }
     public void DisableControls(){
-        print("DisableControls");
+        if(isDebug)print("DisableControls");
         move.Disable();
         attack.Disable();
         interact.Disable();
@@ -283,7 +290,7 @@ public class Player : MonoBehaviour, IDamagable
         look = playerControls.Player.Look;
 
         attack.performed += ctx =>{
-            if(attackDelayTimer <= 0 && !GameManager.instance.isPaused){
+            if(attackDelayTimer <= 0 && !GameManager.instance.isPaused ){
                 Attack();
             }
         };
