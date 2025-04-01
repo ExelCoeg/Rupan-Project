@@ -11,7 +11,7 @@ public class Ring : InteractableObject
     public override void Interacted()
     {
         SoundManager.instance.PlaySound2D("Collected_Ring");
-        GetComponentInParent<SearchRings>().ringsFound++;
+        GetComponentInParent<SearchRingsObjective>().ringsFound++;
         Destroy(gameObject);
     }
 }
